@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesona & Khazanah Magelang - Portal Budaya & Wisata</title>
+  <meta name="description"
+    content="Portal interaktif edukasi budaya dan destinasi pariwisata Magelang untuk mahasiswa dan masyarakat umum." />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Merriweather -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome 6 CDN Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS CDN with Custom Theme Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Merriweather"', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fdf8f6',
+              100: '#f2e8e5',
+              500: '#c25e38',
+              600: '#a34824',
+              700: '#83371a',
+              900: '#431706'
+            },
+            batik: {
+              gold: '#c5a059',
+              dark: '#1e293b'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body
+  class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 w-full glass-nav border-b border-slate-200/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+      <!-- Brand Logo & Nama Portal -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div
+          class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-700 via-emerald-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-indigo-100 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-landmark text-lg"></i>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block -mb-0.5">Portal Budaya &
+            Wisata</span>
+          <span class="text-lg font-extrabold text-slate-900 tracking-tight flex items-center gap-1.5">
+            Pesona Magelang
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Mode Switcher Pill (Desktop) -->
+      <div class="hidden md:flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200 shadow-inner">
+        <button id="btnModeMhs" type="button"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all font-medium text-slate-600 hover:text-slate-900">
+          <i class="fa-solid fa-graduation-cap text-sm"></i>
+          <span>Mode Mahasiswa</span>
+        </button>
+
+        <button id="btnModeUmum" type="button"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all font-medium text-slate-600 hover:text-slate-900">
+          <i class="fa-solid fa-compass text-sm"></i>
+          <span>Mode Umum</span>
+        </button>
+      </div>
+
+      <!-- Quick Action: Tagline Kota & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <div
+          class="hidden lg:flex items-center gap-2 text-xs text-slate-500 bg-white border border-slate-200/90 py-1.5 px-3.5 rounded-xl shadow-sm">
+          <i class="fa-solid fa-mountain-sun text-emerald-600"></i>
+          <span class="font-medium text-slate-700">Kedu • Borobudur • Menoreh</span>
+        </div>
+
+        <!-- Mobile Drawer Menu Toggle -->
+        <button id="mobileMenuToggle" type="button" aria-label="Toggle menu navigasi"
+          class="md:hidden p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 transition-colors">
+          <i class="fa-solid fa-bars text-base"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNavDrawer"
+      class="hidden md:hidden px-4 pt-2 pb-5 border-t border-slate-200/80 bg-white/98 space-y-3">
+      <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pilih Mode Tampilan:</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button id="mobileBtnModeMhs" type="button"
+          class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all bg-indigo-700 text-white">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Mode Mahasiswa</span>
+        </button>
+        <button id="mobileBtnModeUmum" type="button"
+          class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100">
+          <i class="fa-solid fa-compass"></i>
+          <span>Mode Umum</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER SECTION -->
+  <section id="heroBanner" class="relative overflow-hidden bg-white border-b border-slate-200/90 py-12 sm:py-16">
+    <!-- Ornamen Latar Belakang Geometris Halus -->
+    <div
+      class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gradient-to-br from-indigo-100/60 to-emerald-100/40 blur-3xl pointer-events-none">
+    </div>
+    <div
+      class="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-gradient-to-tr from-amber-100/50 to-rose-100/30 blur-2xl pointer-events-none">
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+
+      <!-- Badge Status Mode -->
+      <div>
+        <span id="heroTagBadge"
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-sm">
+          <i class="fa-solid fa-graduation-cap text-indigo-600"></i>
+          Mode Mahasiswa & Riset Budaya
+        </span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 id="heroTitle"
+        class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight sm:leading-tight">
+        Khazanah Peradaban & Kajian Kritis <span class="text-indigo-600 underline decoration-indigo-300">Budaya
+          Magelang</span>
+      </h1>
+
+      <!-- Subtitle Description -->
+      <p id="heroDescription" class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+        Portal edukasi akademik komprehensif bagi mahasiswa perguruan tinggi. Menghadirkan telaah epigrafi candi,
+        manuskrip kuno, etnografi seni pertunjukan tradisional, dan sosiologi mitigasi bencana lereng gunung.
+      </p>
+
+      <!-- Global Search Bar Interaktif -->
+      <div class="max-w-2xl mx-auto pt-2">
+        <div class="relative flex items-center">
+          <div class="absolute left-4 text-slate-400 pointer-events-none text-sm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <input type="text" id="globalSearchInput"
+            placeholder="Cari materi kuliah, teori, prasasti, atau nama candi..."
+            class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white border border-slate-300/90 shadow-sm hover:border-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 text-sm text-slate-800 placeholder-slate-400 transition-all" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KONTEN UTAMA: SECTION MODE MAHASISWA -->
+  <main id="sectionMahasiswa" class="flex-1 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+      <!-- Top Action Bar: Kategori Mata Kuliah & Tombol Catatan Riset -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
+
+        <!-- Filter Kategori Mata Kuliah -->
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">Filter Berdasarkan Mata
+            Kuliah / Bidang Ilmu:</span>
+          <div id="mahasiswaCategoryFilters" class="flex items-center gap-2 flex-wrap">
+            <!-- Diisi otomatis oleh js/mahasiswa.js -->
+          </div>
+        </div>
+
+        <!-- Tombol Khusus: Catatan Riset / Bookmark Tersimpan -->
+        <div class="flex items-center gap-2 self-start lg:self-end">
+          <button id="btnFilterBookmarkMhs" type="button"
+            class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
+            <i class="fa-solid fa-bookmark text-amber-500"></i>
+            <span>Catatan Riset Saya</span>
+            <span id="bookmarkCountBadge"
+              class="hidden text-[10px] bg-amber-500 text-white font-bold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Banner Info Relevansi Kuliah -->
+      <div
+        class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-2xl p-6 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 text-indigo-300 text-xs font-semibold uppercase tracking-wider">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>Relevansi Kurikulum Perguruan Tinggi</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Bahan Rujukan Penelitian & Tugas Akhir Budaya Magelang</h3>
+          <p class="text-xs sm:text-sm text-indigo-200/90 max-w-3xl leading-relaxed">
+            Materi disusun dengan metodologi ilmiah, rujukan primer Prasasti & BPCB (Balai Pelestarian Cagar Budaya),
+            serta dilengkapi kutipan langsung sitasi format APA/Chicago yang siap Anda sematkan pada laporan kuliah.
+          </p>
+        </div>
+        <div class="shrink-0 flex items-center gap-2">
+          <span
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-md text-xs font-semibold text-indigo-100 border border-white/10">
+            <i class="fa-solid fa-check-double text-emerald-400"></i>
+            Terverifikasi Akademik
+          </span>
+        </div>
+      </div>
+
+      <!-- Grid Kartu Materi Mahasiswa -->
+      <div id="mahasiswaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Diisi dinamis oleh js/mahasiswa.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- KONTEN UTAMA: SECTION MODE UMUM -->
+  <main id="sectionUmum" class="hidden flex-1 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+      <!-- Sub-Tab Navigation Bar -->
+      <div class="space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Kategori Panduan Wisata &
+          Budaya:</span>
+        <div id="umumSubTabNav" class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <!-- Diisi otomatis oleh js/umum.js -->
+        </div>
+      </div>
+
+      <!-- Filter Kategori Destinasi (Hanya aktif saat tab Destinasi dipilih) -->
+      <div id="destFilterWrapper" class="flex items-center gap-2 flex-wrap pb-2 border-b border-slate-200/80">
+        <span class="text-xs font-bold text-slate-500 mr-2">Tipe Wisata:</span>
+        <div id="destinationCategoryFilters" class="flex items-center gap-1.5 flex-wrap">
+          <!-- Diisi otomatis oleh js/umum.js -->
+        </div>
+      </div>
+
+      <!-- Grid Kartu Mode Umum -->
+      <div id="umumGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Diisi dinamis oleh js/umum.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- GLOBAL MODAL DIALOG (Detail Baca Lengkap & Destinasi) -->
+  <div id="globalModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+    role="dialog" aria-modal="true">
+    <!-- Backdrop Blur -->
+    <div id="globalModalOverlay" class="fixed inset-0 modal-backdrop transition-opacity"></div>
+
+    <!-- Modal Card Box -->
+    <div
+      class="relative bg-white rounded-3xl shadow-2xl border border-slate-200/90 max-w-3xl w-full my-8 overflow-hidden z-10 flex flex-col max-h-[90vh]">
+
+      <!-- Modal Header Bar -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/80 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+          <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+          <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+          <span class="text-xs font-bold text-slate-500 ml-2">Detail Informasi Lengkap</span>
+        </div>
+        <button data-action="close-modal" type="button" aria-label="Tutup jendela"
+          class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div id="globalModalBody" class="p-6 sm:p-8 overflow-y-auto flex-1">
+        <!-- Konten disuntikkan dinamis melalui js/app.js -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+
+        <!-- Info Brand -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-emerald-600 to-amber-500 flex items-center justify-center text-white font-bold">
+              <i class="fa-solid fa-landmark text-sm"></i>
+            </div>
+            <span class="text-base font-extrabold text-white tracking-tight">Pesona Magelang</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Platform digital khazanah kebudayaan dan pariwisata Magelang yang dirancang khusus untuk civitas akademika
+            perguruan tinggi dan wisatawan nusantara/mancanegara.
+          </p>
+          <div class="flex items-center gap-3 text-slate-400 text-sm">
+            <span
+              class="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center hover:text-white transition-colors cursor-pointer"><i
+                class="fa-brands fa-instagram"></i></span>
+            <span
+              class="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center hover:text-white transition-colors cursor-pointer"><i
+                class="fa-brands fa-youtube"></i></span>
+            <span
+              class="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center hover:text-white transition-colors cursor-pointer"><i
+                class="fa-brands fa-x-twitter"></i></span>
+          </div>
+        </div>
+
+        <!-- Mode Mahasiswa Shortcuts -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Kajian Mahasiswa</h4>
+          <ul class="text-xs space-y-2 text-slate-400">
+            <li><span class="hover:text-indigo-400 transition-colors">Arkeologi Percandian Borobudur</span></li>
+            <li><span class="hover:text-indigo-400 transition-colors">Epigrafi Prasasti Mantyasih & Canggal</span></li>
+            <li><span class="hover:text-indigo-400 transition-colors">Etnografi Tari Soreng Lereng Merbabu</span></li>
+            <li><span class="hover:text-indigo-400 transition-colors">Arsitektur Gempa Omah Joglo Magelangan</span></li>
+            <li><span class="hover:text-indigo-400 transition-colors">Mitigasi Paseduluran Desa Merapi</span></li>
+          </ul>
+        </div>
+
+        <!-- Mode Umum Shortcuts -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Panduan Wisatawan</h4>
+          <ul class="text-xs space-y-2 text-slate-400">
+            <li><span class="hover:text-emerald-400 transition-colors">Destinasi Wisata Candi & Alam</span></li>
+            <li><span class="hover:text-emerald-400 transition-colors">Direktori Tour Guide Resmi HPI</span></li>
+            <li><span class="hover:text-emerald-400 transition-colors">Hotel & Homestay Desa Wisata</span></li>
+            <li><span class="hover:text-emerald-400 transition-colors">Kupat Tahu & Mangut Beong Magelang</span></li>
+            <li><span class="hover:text-emerald-400 transition-colors">Sentra Gerabah Klipoh & Pahat Muntilan</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Kontak & Tautan Edukasi -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Pusat Rujukan Budaya</h4>
+          <div class="space-y-2 text-xs text-slate-400 leading-relaxed">
+            <p class="flex items-start gap-2">
+              <i class="fa-solid fa-building-columns text-emerald-500 mt-0.5"></i>
+              <span>Dinas Pendidikan dan Kebudayaan Kota & Kab. Magelang</span>
+            </p>
+            <p class="flex items-start gap-2">
+              <i class="fa-solid fa-map-pin text-rose-500 mt-0.5"></i>
+              <span>Dataran Kedu, Jawa Tengah, Indonesia</span>
+            </p>
+            <div class="pt-2">
+              <span
+                class="inline-block px-3 py-1 bg-slate-800 rounded-lg text-[11px] text-emerald-400 font-semibold border border-slate-700">
+                Paku Tanah Jawa • 907 Masehi
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div
+        class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2026 Pesona & Khazanah Budaya Magelang. Dibuat dengan HTML5, Tailwind CSS, & JavaScript Modern.</p>
+        <div class="flex items-center gap-4">
+          <span class="hover:underline cursor-pointer">Bahan Ajar Perkuliahan</span>
+          <span>•</span>
+          <span class="hover:underline cursor-pointer">Ekowisata Lestari</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Aplikasi Utama (Kompatibel file:// langsung maupun http://) -->
+  <script src="js/data.js"></script>
+  <script src="js/mahasiswa.js"></script>
+  <script src="js/umum.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
