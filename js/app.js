@@ -103,12 +103,12 @@ function applyActiveMode(mode, animate = true) {
 
     // Update Hero Content untuk Mahasiswa
     if (heroTagBadge) {
-      heroTagBadge.className = 'inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-sm';
-      heroTagBadge.innerHTML = '<i class="fa-solid fa-graduation-cap text-indigo-600"></i> Mode Mahasiswa & Riset Budaya';
+      heroTagBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-950/80 backdrop-blur-md text-indigo-200 border border-indigo-400/40 shadow-lg';
+      heroTagBadge.innerHTML = '<i class="fa-solid fa-graduation-cap text-amber-300"></i> Mode Mahasiswa & Riset Budaya';
     }
 
     if (heroTitle) {
-      heroTitle.innerHTML = 'Khazanah Peradaban & Kajian Kritis <span class="text-indigo-600 underline decoration-indigo-300">Budaya Magelang</span>';
+      heroTitle.innerHTML = 'Khazanah Peradaban & Kajian Kritis <span class="text-amber-300 underline decoration-amber-400/80">Budaya Magelang</span>';
     }
 
     if (heroDescription) {
@@ -144,12 +144,12 @@ function applyActiveMode(mode, animate = true) {
 
     // Update Hero Content untuk Umum
     if (heroTagBadge) {
-      heroTagBadge.className = 'inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm';
-      heroTagBadge.innerHTML = '<i class="fa-solid fa-compass text-emerald-600"></i> Mode Umum & Panduan Wisatawan';
+      heroTagBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-950/80 backdrop-blur-md text-emerald-200 border border-emerald-400/40 shadow-lg';
+      heroTagBadge.innerHTML = '<i class="fa-solid fa-compass text-emerald-300"></i> Mode Umum & Panduan Wisatawan';
     }
 
     if (heroTitle) {
-      heroTitle.innerHTML = 'Jelajahi Pesona Megah Wisata & <span class="text-emerald-700 underline decoration-emerald-300">Budaya Bumi Magelang</span>';
+      heroTitle.innerHTML = 'Jelajahi Pesona Megah Wisata & <span class="text-emerald-300 underline decoration-emerald-400/80">Budaya Bumi Magelang</span>';
     }
 
     if (heroDescription) {
