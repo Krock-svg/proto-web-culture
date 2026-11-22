@@ -153,7 +153,7 @@ function applyActiveMode(mode, animate = true) {
     }
 
     if (heroDescription) {
-      heroDescription.textContent = 'Panduan lengkap liburan di Magelang: temukan destinasi candi dunia, keajaiban panorama alam lereng Sumbing, pemandu wisata berlisensi, hotel & homestay, kuliner legendaris, dan sentra kerajinan UMKM lokal.';
+      heroDescription.textContent = 'BUMI MAGELANG merupakan ruang jelajah digital yang mengajak masyarakat mengenal lebih dekat kekayaan Magelang. Mulai dari kisah sejarah, warisan budaya, destinasi wisata, hingga kuliner dan produk lokal. Temukan berbagai informasi dan layanan wisata dalam satu tempat, lalu rasakan sendiri pesona Magelang!';
     }
 
     if (globalSearchInput) {
