@@ -101,18 +101,18 @@ function applyActiveMode(mode, animate = true) {
     if (mobileBtnModeMhs) mobileBtnModeMhs.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${activeClasses}`;
     if (mobileBtnModeUmum) mobileBtnModeUmum.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${inactiveClasses}`;
 
-    // Update Hero Content untuk Mahasiswa
+    // Update Hero Content untuk Mahasiswa (TIDARAKSA)
     if (heroTagBadge) {
       heroTagBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-950/80 backdrop-blur-md text-indigo-200 border border-indigo-400/40 shadow-lg';
-      heroTagBadge.innerHTML = '<i class="fa-solid fa-graduation-cap text-amber-300"></i> Mode Mahasiswa & Riset Budaya';
+      heroTagBadge.innerHTML = '<i class="fa-solid fa-graduation-cap text-amber-300"></i> Ruang Eksplorasi Digital • TIDARAKSA';
     }
 
     if (heroTitle) {
-      heroTitle.innerHTML = 'Khazanah Peradaban & Kajian Kritis <span class="text-amber-300 underline decoration-amber-400/80">Budaya Magelang</span>';
+      heroTitle.innerHTML = 'Belajar Lebih Mudah, Jelajah Lebih Luas Bersama <span class="text-amber-300 underline decoration-amber-400/80">TIDARAKSA</span>';
     }
 
     if (heroDescription) {
-      heroDescription.textContent = 'Portal edukasi akademik komprehensif bagi mahasiswa perguruan tinggi. Menghadirkan telaah epigrafi candi, manuskrip kuno, etnografi seni pertunjukan tradisional, dan sosiologi mitigasi bencana lereng gunung.';
+      heroDescription.textContent = 'TIDARAKSA merupakan ruang eksplorasi digital yang mengajak mahasiswa mengenal lebih dekat sejarah, budaya, dan berbagai potensi lokal Magelang. Mulai dari wawasan edukatif, kisah peninggalan sejarah, tradisi budaya, hingga destinasi wisata yang menyimpan nilai dan cerita. Temukan berbagai informasi, referensi, serta layanan wisata dalam satu tempat untuk memperluas pengetahuan sekaligus merasakan pengalaman menjelajahi Magelang!';
     }
 
     if (globalSearchInput) {
@@ -142,10 +142,10 @@ function applyActiveMode(mode, animate = true) {
     if (mobileBtnModeUmum) mobileBtnModeUmum.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${activeClasses}`;
     if (mobileBtnModeMhs) mobileBtnModeMhs.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${inactiveClasses}`;
 
-    // Update Hero Content untuk Umum
+    // Update Hero Content untuk Umum (Bumi Magelang)
     if (heroTagBadge) {
       heroTagBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-950/80 backdrop-blur-md text-emerald-200 border border-emerald-400/40 shadow-lg';
-      heroTagBadge.innerHTML = '<i class="fa-solid fa-compass text-emerald-300"></i> Mode Umum & Panduan Wisatawan';
+      heroTagBadge.innerHTML = '<i class="fa-solid fa-compass text-emerald-300"></i> Panduan Wisata • Bumi Magelang';
     }
 
     if (heroTitle) {
