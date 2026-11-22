@@ -149,7 +149,7 @@ function applyActiveMode(mode, animate = true) {
     }
 
     if (heroTitle) {
-      heroTitle.innerHTML = 'Jelajahi Pesona Megah Wisata & <span class="text-emerald-300 underline decoration-emerald-400/80">Budaya Bumi Magelang</span>';
+      heroTitle.innerHTML = 'Yuk, Temukan Cerita di Setiap Sudut <span class="text-emerald-300 underline decoration-emerald-400/80">Bumi Magelang!</span>';
     }
 
     if (heroDescription) {
