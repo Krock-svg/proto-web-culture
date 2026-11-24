@@ -16,26 +16,40 @@ const dataMahasiswa = [
     sumberReferensi: "Krom, N. J. (1927). Barabudur: Archaeological Description; Soekmono, R. (1976). Chandi Borobudur: A Monument of Mankind. The Unesco Press.",
     waktuBaca: "7 Menit Baca",
     image: "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=800&q=80",
-    abstrak: "Analisis struktural transisi tingkatan kosmologi Buddha Mahayana dari Kamadhatu (ranah hawa nafsu duniawi), Rupadhatu (ranah wujud berbatas), hingga Arupadhatu (ranah nirwujud murni), serta dekonstruksi naratif relief Karmawibhangga yang tertutup kaki tambahan.",
+    abstrak: "Borobudur adalah candi Buddha Mahayana yang dibangun pada abad ke-8 hingga ke-9 Masehi pada masa Wangsa Syailendra. Candi ini terletak di Kabupaten Magelang dan ditetapkan UNESCO sebagai Situs Warisan Dunia pada 1991. Bangunannya tersusun dari ratusan ribu blok batu andesit tanpa perekat semen, dan dirancang sebagai \"buku\" ajaran Buddha yang dibaca sambil berjalan.",
     materiLengkap: `
-### 1. Latar Belakang Geopolitik & Dinasti Syailendra
-Candi Borobudur dibangun sekitar abad ke-8 hingga ke-9 Masehi (sekitar tahun 750 - 825 M) pada masa pemerintahan Wangsa Syailendra di dataran Kedu, Magelang. Posisi geografisnya yang diapit oleh Gunung Merapi, Merbabu, Sindoro, dan Sumbing, serta pertemuan dua sungai suci (Elo dan Progo) memperkuat status dataran Kedu sebagai lanskap suci sakral (*sacred landscape*) dalam kosmologi Jawa Kuno.
+Borobudur adalah candi Buddha Mahayana yang dibangun pada abad ke-8 hingga ke-9 Masehi pada masa Wangsa Syailendra. Candi ini terletak di Kabupaten Magelang dan ditetapkan UNESCO sebagai Situs Warisan Dunia pada 1991. Bangunannya tersusun dari ratusan ribu blok batu andesit tanpa perekat semen, dan dirancang sebagai "buku" ajaran Buddha yang dibaca sambil berjalan.
 
-### 2. Tri-Loka Kosmologi Buddhis
-Struktur arsitektur Borobudur merepresentasikan tingkatan spiritual kesadaran manusia:
-1. **Kamadhatu (Bagian Kaki/Dasar)**: Melambangkan alam bawah manusia yang masih terikat oleh nafsu badaniah (*kama*). Relief *Karmawibhangga* memuat 160 panil yang mendokumentasikan hukum sebab-akibat karma perbuatan manusia. Bagian ini kemudian ditutup oleh selasar penguat (*encasement*) batu andesit tambahan.
-2. **Rupadhatu (Empat Lorong Persegi)**: Melambangkan alam antara, tempat manusia telah terbebas dari dorongan nafsu hewani namun masih terikat pada wujud fisik dan rupa. Dindingnya dihiasi narasi *Lalitavistara* (biografi Sang Buddha Sakyamuni), *Jataka-Avadana*, dan *Gandavyuha* (perjalanan spiritual Sudhana mencari pencerahan tertinggi).
-3. **Arupadhatu (Tiga Teras Melingkar & Stupa Induk)**: Melambangkan alam nir-wujud, puncak kekosongan (*sunyata*) dan pencapaian Nirwana. Berbeda dengan dinding lorong di bawahnya, teras Arupadhatu polos tanpa relief naratif, hanya memuat stupa-stupa berterawang yang menaungi arca Dhyani Buddha Vajrasattva/Aksobhya, hingga berpuncak pada Stupa Induk tertutup yang hening.
+### 1. Sejarah
+Borobudur dibangun sebagai tempat ibadah sekaligus sarana belajar ajaran Buddha. Seiring waktu, candi ini tertimbun abu vulkanik dan tertutup vegetasi hingga terlupakan. Pada 1814, candi ini kembali diperhatikan lewat penelitian pada masa Thomas Stamford Raffles. Pemugaran besar pertama dilakukan pada 1907–1911, disusul pemugaran besar kedua dengan dukungan UNESCO pada 1973–1983.
 
-### 3. Aspek Teknik Arsitektur Interlocking Batu Andesit
-Borobudur tidak menggunakan semen atau perekat modern. Sambungan antar balok andesit menggunakan teknik *knock-down interlocking*:
-- Sambungan takikan ekor burung (*dovetail joint*)
-- Sambungan alur lidah (*tongue and groove*)
-- Pola lubang pasak (*dowel and mortise*)
-Sistem drainase menggunakan ornamen *Jaladwara* (mulut monster Makara) yang mengalirkan air hujan keluar struktur candi secara gravitasi alami.
+Strukturnya terbagi menjadi tiga tingkat:
+- **Kamadhatu**: dunia keinginan, tingkat paling bawah.
+- **Rupadhatu**: dunia berwujud, tingkat tengah dengan lorong-lorong relief.
+- **Arupadhatu**: dunia tanpa wujud, tingkat puncak dengan stupa berlubang dan stupa induk.
 
-### 4. Relevansi Akademik Masa Kini
-Kajian relief Borobudur menjadi sumber primer bagi peneliti sosiologi dan filologi dalam merekonstruksi alat musik kuno nusantara (seperti *saron*, *lute*, *flute*), moda transportasi laut (Kapal Borobudur berlunas ganda), flora-fauna endemik Nusantara abad ke-8, serta stratifikasi sosial masyarakat agraris Mataram Kuno.
+Perjalanan naik dari dasar ke puncak menggambarkan perjalanan batin menuju pencerahan.
+
+### 2. Nilai Budaya
+- **Pendidikan lewat visual**: relief Karmawibhangga, Lalitavistara, Jataka, dan Gandavyuha menjadi "buku ajar" yang menyampaikan ajaran moral lewat gambar, sehingga bisa dipahami lintas lapisan masyarakat.
+- **Kosmologi dan perjalanan batin**: tiga tingkat Kamadhatu, Rupadhatu, dan Arupadhatu menggambarkan proses manusia melepaskan keinginan menuju pencerahan.
+- **Warisan hidup**: Waisak dengan prosesi Mendut–Pawon–Borobudur membuktikan bahwa candi ini masih berfungsi sebagai ruang ibadah, bukan sekadar objek wisata.
+- **Keahlian dan kerja kolektif**: pembangunan monumen sebesar ini menunjukkan penguasaan teknik arsitektur, pengelolaan tenaga kerja, dan perencanaan jangka panjang masyarakat masa itu.
+- **Kesadaran pelestarian**: pemugaran besar yang didukung UNESCO menunjukkan bahwa warisan ini dipandang sebagai milik dunia, sekaligus tanggung jawab bersama.
+
+### 3. Relevansi bagi Mahasiswa
+- **Budaya dan Karakter Tidar**: contoh nyata tentang identitas bangsa, toleransi, dan kearifan lokal yang berasal dari daerah tempat mahasiswa belajar.
+- **Pariwisata**: studi kasus pengelolaan destinasi warisan dunia, mulai dari pembatasan pengunjung, daya dukung, hingga pariwisata berkelanjutan.
+- **Pendidikan dan sejarah**: bahan ajar kontekstual tentang sejarah Nusantara dan penyebaran agama Buddha.
+- **Teknik dan arsitektur**: kajian struktur batu tanpa perekat, sistem drainase, dan konservasi material.
+- **Komunikasi dan ekonomi kreatif**: peluang mengemas narasi budaya menjadi konten, produk, dan layanan.
+
+### 4. Implementasi
+- **Pembelajaran lapangan**: kunjungan dengan lembar observasi relief, lalu refleksi tertulis tentang nilai yang ditemukan dan kaitannya dengan karakter mahasiswa.
+- **Pemandu mahasiswa Pariwisata**: menyusun narasi tur edukatif dari bacaan relief, dengan standar informasi yang diverifikasi ke sumber resmi.
+- **Riset**: topik seperti dampak pariwisata pada masyarakat sekitar, persepsi pengunjung, atau efektivitas pembatasan kunjungan.
+- **Karya dan konten**: poster, video dokumenter pendek, atau modul belajar budaya untuk mahasiswa dan pelajar.
+- **Kolaborasi UMKM**: mahasiswa membantu pengemasan produk dan promosi pelaku usaha di desa sekitar.
     `,
     sitasi: {
       apa: "Soekmono, R. (1976). Chandi Borobudur: A Monument of Mankind. Paris: The Unesco Press.",
