@@ -597,34 +597,105 @@ function showToast(message, type = 'info') {
 }
 
 /**
- * Helper format teks Markdown sederhana menjadi elemen HTML
+ * Parser Markdown yang tangguh dan rapi untuk modul baca & modal
  */
 function formatMarkdownContent(text) {
   if (!text) return '';
-  return text
-    .split('\n\n')
-    .map(p => {
-      p = p.trim();
-      if (p.startsWith('### ')) {
-        return `<h3 class="text-base font-bold text-slate-900 mt-4 mb-2">${p.replace('### ', '')}</h3>`;
+
+  const lines = text.split('\n');
+  const output = [];
+  let currentList = null; // 'ul' | 'ol' | null
+
+  function closeList() {
+    if (currentList === 'ul') {
+      output.push('</ul>');
+      currentList = null;
+    } else if (currentList === 'ol') {
+      output.push('</ol>');
+      currentList = null;
+    }
+  }
+
+  function inlineFormat(str) {
+    if (!str) return '';
+    return str
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em class="italic text-slate-700">$1</em>')
+      .replace(/`([^`]+)`/g, '<code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono">$1</code>');
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const rawLine = lines[i];
+    const line = rawLine.trim();
+
+    if (!line) {
+      closeList();
+      continue;
+    }
+
+    // Headers
+    if (line.startsWith('### ')) {
+      closeList();
+      const content = inlineFormat(line.slice(4).trim());
+      output.push(`<h3 class="text-base sm:text-lg font-bold text-slate-900 mt-6 mb-3 pt-2 pb-1 border-b border-slate-100 flex items-center gap-2">${content}</h3>`);
+    } else if (line.startsWith('## ')) {
+      closeList();
+      const content = inlineFormat(line.slice(3).trim());
+      output.push(`<h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-7 mb-3.5 pb-1.5 border-b border-slate-200">${content}</h2>`);
+    } else if (line.startsWith('# ')) {
+      closeList();
+      const content = inlineFormat(line.slice(2).trim());
+      output.push(`<h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-8 mb-4">${content}</h1>`);
+    }
+    // Bullet List (- or *)
+    else if (line.startsWith('- ') || line.startsWith('* ')) {
+      if (currentList === 'ol') {
+        output.push('</ol>');
+        currentList = null;
       }
-      if (p.startsWith('## ')) {
-        return `<h2 class="text-lg font-bold text-slate-900 mt-4 mb-2">${p.replace('## ', '')}</h2>`;
+      if (!currentList) {
+        output.push('<ul class="my-3 space-y-2.5 pl-1">');
+        currentList = 'ul';
       }
-      if (p.startsWith('- ')) {
-        const listItems = p.split('\n').map(li => `<li class="ml-4 list-disc">${li.replace(/^- /, '')}</li>`).join('');
-        return `<ul class="my-2 space-y-1">${listItems}</ul>`;
+      const content = inlineFormat(line.slice(2).trim());
+      output.push(`
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 shrink-0"></span>
+          <span class="flex-1">${content}</span>
+        </li>
+      `);
+    }
+    // Numbered List (1. 2. etc.)
+    else if (/^\d+\.\s+/.test(line)) {
+      if (currentList === 'ul') {
+        output.push('</ul>');
+        currentList = null;
       }
-      if (p.startsWith('1. ')) {
-        const listItems = p.split('\n').map(li => `<li class="ml-4 list-decimal">${li.replace(/^\d+\.\s*/, '')}</li>`).join('');
-        return `<ol class="my-2 space-y-1">${listItems}</ol>`;
+      if (!currentList) {
+        output.push('<ol class="my-3 space-y-2.5 pl-1">');
+        currentList = 'ol';
       }
-      // Bold & Italic
-      p = p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      p = p.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      return `<p class="mb-3">${p}</p>`;
-    })
-    .join('');
+      const numMatch = line.match(/^(\d+)\.\s+(.*)/);
+      const num = numMatch ? numMatch[1] : '1';
+      const rest = numMatch ? numMatch[2] : line;
+      const content = inlineFormat(rest.trim());
+      output.push(`
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <span class="font-bold text-indigo-600 text-xs shrink-0 w-5">${num}.</span>
+          <span class="flex-1">${content}</span>
+        </li>
+      `);
+    }
+    // Regular paragraph
+    else {
+      closeList();
+      const content = inlineFormat(line);
+      output.push(`<p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3">${content}</p>`);
+    }
+  }
+
+  closeList();
+  return output.join('\n');
 }
 
 function escapeForAttr(str) {
