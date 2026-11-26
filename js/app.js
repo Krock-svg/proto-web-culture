@@ -221,7 +221,7 @@ function applyActiveMode(mode, animate = true) {
     }
 
     if (heroTitle) {
-      heroTitle.innerHTML = 'Eksplorasi Naskah & Riset Budaya Bersama <span class="text-amber-300 underline decoration-amber-400/80">TIDARAKSA</span>';
+      heroTitle.innerHTML = 'Yuk, explore sejarah magelang dengan mudah, bersama <span class="text-amber-300 underline decoration-amber-400/80">TIDARAKSA</span>';
     }
 
     if (heroDescription) {
