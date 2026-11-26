@@ -119,17 +119,33 @@
     }
   ];
 
-  // Fungsi pencocokan jawaban cerdas berbasis kata kunci
+  // Fungsi pencocokan jawaban cerdas berbasis kata kunci + pencarian dinamis dataMahasiswa
   function findBestAnswer(query, faculty = '') {
     const q = query.toLowerCase().trim();
     if (!q) return null;
 
-    // Cek jika pertanyaan meminta rekomendasi skripsi/fakultas
+    // 1. Sapaan & Pertanyaan Umum tentang TidarAI
+    if (/^(halo|hai|hi|hello|pagi|siang|sore|malam|assalamualaikum|permisi)\b/.test(q)) {
+      return {
+        title: 'Halo, Rekan Mahasiswa UNTIDAR! 👋',
+        answer: `Selamat datang di **TidarAI**. Saya siap membantu Anda menelusuri sejarah, arkeologi, seni budaya Magelang, hingga menyusun sitasi tugas kuliah.\n\nSilakan tanyakan topik spesifik seperti *"Jelaskan sejarah Borobudur"*, *"Apa isi Prasasti Mantyasih?"*, *"Tari Soreng"*, *"Omah Joglo"*, atau minta *"Ide topik skripsi"*!`
+      };
+    }
+
+    if (q.includes('terima kasih') || q.includes('makasih') || q.includes('thanks')) {
+      return {
+        title: 'Sama-sama! 😊',
+        answer: `Senang bisa membantu riset Anda di **TIDARAKSA**. Jika butuh bantuan sitasi atau referensi materi lain, silakan tanya lagi kapan saja!`
+      };
+    }
+
+    // 2. Cek jika pertanyaan meminta rekomendasi skripsi/fakultas
     if (q.includes('skripsi') || q.includes('topik') || q.includes('judul') || q.includes('penelitian')) {
       const matched = KNOWLEDGE_BASE.find(item => item.keywords.includes('skripsi'));
       if (matched) return matched;
     }
 
+    // 3. Pencarian di KNOWLEDGE_BASE terkurasi
     let bestScore = 0;
     let bestMatch = null;
 
@@ -137,7 +153,7 @@
       let score = 0;
       entry.keywords.forEach(kw => {
         if (q.includes(kw)) {
-          score += kw.length; // Bobot lebih besar untuk kata kunci yang lebih spesifik
+          score += kw.length * 2;
         }
       });
       if (score > bestScore) {
@@ -146,19 +162,50 @@
       }
     });
 
-    if (bestMatch && bestScore > 0) {
+    if (bestMatch && bestScore >= 4) {
       return bestMatch;
     }
 
-    // Default fallback cerdas jika tidak ditemukan kata kunci persis
+    // 4. Pencarian dinamis di seluruh modul dataMahasiswa (judul, abstrak, materi, keywords)
+    const mhsData = window.dataMahasiswa || [];
+    const stopWords = ['apa', 'itu', 'yang', 'di', 'ke', 'dari', 'dan', 'atau', 'untuk', 'tentang', 'jelaskan', 'ceritakan', 'bagaimana', 'siapa', 'mengapa', 'kapan', 'dimana', 'tolong', 'dong', 'ya', 'saya', 'aku'];
+    const terms = q.replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !stopWords.includes(w));
+
+    if (terms.length > 0 && mhsData.length > 0) {
+      let bestMod = null;
+      let bestModScore = 0;
+
+      mhsData.forEach(mod => {
+        let s = 0;
+        const haystack = `${mod.judul} ${mod.matkulKategori} ${mod.abstrak} ${(mod.keywords || []).join(' ')} ${mod.materiLengkap || ''}`.toLowerCase();
+        terms.forEach(t => {
+          if (mod.judul.toLowerCase().includes(t)) s += 10;
+          if ((mod.keywords || []).some(k => k.toLowerCase().includes(t))) s += 8;
+          if (haystack.includes(t)) s += 3;
+        });
+        if (s > bestModScore) {
+          bestModScore = s;
+          bestMod = mod;
+        }
+      });
+
+      if (bestMod && bestModScore >= 6) {
+        return {
+          title: `📚 ${bestMod.judul}`,
+          answer: `**Bidang Ilmu:** ${bestMod.matkulKategori} (${bestMod.badge})\n\n${bestMod.abstrak}\n\n**Referensi Sitasi (APA):**\n*${bestMod.sitasi?.apa || bestMod.sumberReferensi}*\n\n💡 *Anda dapat membuka buku **"${bestMod.judul}"** di Rak Buku 3D untuk membaca kajian lengkapnya.*`
+        };
+      }
+    }
+
+    // 5. Default fallback jika tetap tidak ditemukan kata kunci yang relevan
     return {
       title: 'Bantuan Riset Cagar Budaya Magelang',
       answer: `Pertanyaan Anda sangat menarik untuk diteliti lebih dalam. Sebagai asisten akademik mahasiswa Universitas Tidar, saya dapat membantu Anda menganalisis:
 
 1. **Kosmologi & Relief Borobudur**: Penjelasan panil *Karmawibhangga*, *Lalitavistara*, atau makna 3 tingkatan (Kamadhatu, Rupadhatu, Arupadhatu).
 2. **Epigrafi Prasasti Kuno**: Telaah naskah Prasasti Mantyasih (907 M) dan Prasasti Canggal (732 M).
-3. **Ide Tugas Akhir & Skripsi**: Rekomendasi topik riset untuk fakultas Anda di Untidar (FKIP, FE, FISIP, FT, Faperta).
-4. **Sitasi Ilmiah Cepat**: Pembuatan format sitasi APA 7th, Chicago, atau MLA untuk karya Krom, Soekmono, atau Boechari.
+3. **Budaya & Arsitektur Lokal**: Tari Soreng Merbabu, Omah Joglo Magelangan, dan Mitigasi Paseduluran Merapi.
+4. **Ide Tugas Akhir & Skripsi**: Rekomendasi topik riset untuk fakultas Anda di Untidar (FKIP, FE, FISIP, FT, Faperta).
 
 *Silakan klik tombol pertanyaan rekomendasi di bawah atau ketik kata kunci yang lebih spesifik.*`
     };

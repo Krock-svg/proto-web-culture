@@ -298,54 +298,80 @@
       return;
     }
 
-    container.innerHTML = filtered.map(item => {
+    const bookThemes = [
+      'from-indigo-900 via-indigo-800 to-slate-900 border-indigo-400/30',
+      'from-amber-800 via-amber-900 to-stone-900 border-amber-400/30',
+      'from-emerald-900 via-teal-900 to-slate-900 border-emerald-400/30',
+      'from-rose-900 via-rose-950 to-slate-900 border-rose-400/30',
+      'from-slate-800 via-slate-900 to-indigo-950 border-slate-400/30'
+    ];
+
+    container.innerHTML = filtered.map((item, idx) => {
       const isBookmarked = bookmarkedIds.includes(item.id);
+      const themeClass = bookThemes[idx % bookThemes.length];
 
       return `
-        <article class="bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group">
-          <!-- Banner Gambar & Badge -->
-          <div class="relative h-48 overflow-hidden bg-slate-100">
-            <img 
-              src="${item.image}" 
-              alt="${item.judul}" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent"></div>
-            
-            <!-- Badge Mata Kuliah -->
-            <div class="absolute top-3 left-3 flex items-center gap-1.5 bg-indigo-900/90 backdrop-blur-sm text-indigo-100 px-3 py-1 rounded-full text-xs font-semibold shadow">
-              <i class="fa-solid fa-award text-amber-300 text-[10px]"></i>
-              <span>${item.badge}</span>
+        <article class="book-card-3d rounded-r-2xl rounded-l-md bg-gradient-to-br ${themeClass} border shadow-xl flex flex-col justify-between overflow-hidden cursor-pointer min-h-[340px] group relative"
+          data-action="baca-mhs" data-id="${item.id}">
+          <!-- Efek Punggung Buku 3D -->
+          <div class="book-spine-crease"></div>
+
+          <!-- Header Sampul Buku -->
+          <div class="p-5 pl-7 space-y-3 relative z-10">
+            <div class="flex items-start justify-between gap-2">
+              <span class="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-amber-200 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border border-white/10">
+                <i class="fa-solid fa-award text-amber-300 text-[9px]"></i>
+                ${item.badge}
+              </span>
+
+              <button 
+                data-action="bookmark-mhs" 
+                data-id="${item.id}"
+                onclick="event.stopPropagation()"
+                title="${isBookmarked ? 'Hapus dari Catatan Riset' : 'Simpan ke Catatan Riset'}"
+                class="w-8 h-8 rounded-full flex items-center justify-center transition-transform active:scale-90 shrink-0 ${isBookmarked
+                  ? 'bg-amber-500 text-white shadow-md shadow-amber-500/40'
+                  : 'bg-white/10 text-white/80 hover:bg-white/25 hover:text-amber-300'
+                }">
+                <i class="fa-${isBookmarked ? 'solid' : 'regular'} fa-bookmark text-xs"></i>
+              </button>
             </div>
 
-            <!-- Tombol Bookmark Riset -->
-            <button 
-              data-action="bookmark-mhs" 
-              data-id="${item.id}"
-              title="${isBookmarked ? 'Hapus dari Catatan Riset' : 'Simpan ke Catatan Riset'}"
-              class="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-transform active:scale-90 ${isBookmarked
-          ? 'bg-amber-500 text-white shadow-md shadow-amber-300'
-          : 'bg-white/80 backdrop-blur-sm text-slate-700 hover:bg-white hover:text-amber-500'
-        }">
-              <i class="fa-${isBookmarked ? 'solid' : 'regular'} fa-bookmark text-xs"></i>
-            </button>
-
-            <!-- Estimasi Waktu Baca -->
-            <div class="absolute bottom-2.5 left-3 text-xs text-white/90 font-medium flex items-center gap-1.5">
-              <i class="fa-regular fa-clock text-[11px]"></i>
-              <span>${item.waktuBaca}</span>
-              <span class="opacity-60">•</span>
-              <span>${item.matkulKategori}</span>
+            <div class="pt-1">
+              <span class="text-[10px] font-semibold text-white/60 uppercase tracking-widest block mb-1">
+                ${item.matkulKategori}
+              </span>
+              <h3 class="text-base sm:text-lg font-extrabold text-white leading-snug group-hover:text-amber-200 transition-colors line-clamp-3 font-serif">
+                ${item.judul}
+              </h3>
             </div>
           </div>
 
-          <!-- Konten Card -->
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-base font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-indigo-600 transition-colors mb-2">
-                ${item.judul}
-              </h3>
+          <!-- Gambar Mini & Footer Sampul -->
+          <div class="px-5 pl-7 pb-5 pt-2 space-y-3 relative z-10">
+            <div class="h-24 rounded-xl overflow-hidden border border-white/15 relative">
+              <img 
+                src="${item.image}" 
+                alt="${item.judul}" 
+                class="w-full h-full object-cover opacity-85 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <span class="absolute bottom-1.5 left-2.5 text-[10px] text-white/90 font-medium flex items-center gap-1">
+                <i class="fa-regular fa-clock text-[9px] text-amber-300"></i> ${item.waktuBaca}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between pt-1 border-t border-white/10 text-[11px] text-white/80">
+              <span class="truncate max-w-[140px] font-medium">${item.penulis}</span>
+              <span class="inline-flex items-center gap-1 font-bold text-amber-300 group-hover:translate-x-1 transition-transform">
+                Buka Buku <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
               <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4">
                 ${item.abstrak}
               </p>
