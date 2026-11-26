@@ -228,6 +228,8 @@ function applyActiveMode(mode, animate = true) {
       heroDescription.textContent = `Selamat datang, ${session.nama} (${session.fakultas}, Universitas Tidar). Nikmati akses eksklusif ke pustaka manuskrip 3D, bedah relief & prasasti kuno, format sitasi ilmiah otomatis, serta pendampingan riset interaktif bersama TidarAI!`;
     }
 
+    const globalSearchWrapper = document.getElementById('globalSearchWrapper');
+    if (globalSearchWrapper) globalSearchWrapper.classList.add('hidden');
     if (globalSearchInput) {
       globalSearchInput.placeholder = 'Cari materi kuliah, teori, prasasti, atau nama candi...';
     }
@@ -277,6 +279,8 @@ function applyActiveMode(mode, animate = true) {
       heroDescription.textContent = 'BUMI MAGELANG merupakan ruang jelajah digital yang mengajak masyarakat mengenal lebih dekat kekayaan Magelang. Mulai dari kisah sejarah, warisan budaya, destinasi wisata, hingga kuliner dan produk lokal. Temukan berbagai informasi dan layanan wisata dalam satu tempat, lalu rasakan sendiri pesona Magelang!';
     }
 
+    const globalSearchWrapper = document.getElementById('globalSearchWrapper');
+    if (globalSearchWrapper) globalSearchWrapper.classList.remove('hidden');
     if (globalSearchInput) {
       globalSearchInput.placeholder = 'Cari destinasi wisata, hotel, nama tour guide, atau UMKM...';
     }
