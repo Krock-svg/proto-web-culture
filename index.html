@@ -78,19 +78,41 @@
         </div>
       </a>
 
-      <!-- Mode Switcher Pill (Desktop) -->
-      <div class="hidden md:flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200 shadow-inner">
-        <button id="btnModeMhs" type="button"
-          class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all font-medium text-slate-600 hover:text-slate-900">
-          <i class="fa-solid fa-graduation-cap text-sm"></i>
-          <span>TIDARAKSA</span>
-        </button>
+      <!-- Navigasi Dua Lapis: Gateway TIDARAKSA & Bumi Magelang (Desktop) -->
+      <div class="hidden md:flex items-center gap-3">
+        <!-- Tampilan Saat di Bumi Magelang (Publik) -->
+        <div id="navBumiActions" class="flex items-center gap-2">
+          <button id="btnGatewayTidaraksa" type="button"
+            class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all font-bold bg-gradient-to-r from-amber-600 via-amber-700 to-indigo-900 text-white shadow-md shadow-amber-500/20 hover:shadow-lg hover:scale-[1.02] active:scale-95">
+            <i class="fa-solid fa-graduation-cap text-amber-300"></i>
+            <span>Ruang Riset TIDARAKSA</span>
+            <span class="text-[9px] bg-amber-400 text-amber-950 font-extrabold px-1.5 py-0.5 rounded-full uppercase">UNTIDAR</span>
+          </button>
+        </div>
 
-        <button id="btnModeUmum" type="button"
-          class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all font-medium text-slate-600 hover:text-slate-900">
-          <i class="fa-solid fa-compass text-sm"></i>
-          <span>Bumi Magelang</span>
-        </button>
+        <!-- Tampilan Saat di TIDARAKSA (Sivitas Untidar) -->
+        <div id="navTidaraksaActions" class="hidden flex items-center gap-2">
+          <button id="btnBackToBumi" type="button"
+            class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 border border-slate-200 transition-all">
+            <i class="fa-solid fa-compass text-emerald-600"></i>
+            <span>Kembali ke Bumi Magelang</span>
+          </button>
+
+          <div id="navStudentChip" class="flex items-center gap-2 pl-2 border-l border-slate-200">
+            <div class="w-8 h-8 rounded-xl bg-amber-600 text-white flex items-center justify-center text-xs font-bold shadow-sm">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div class="hidden lg:block text-left text-xs leading-tight">
+              <span id="navStudentName" class="font-bold text-slate-800 block line-clamp-1">Mahasiswa Untidar</span>
+              <span id="navStudentMeta" class="text-[10px] text-slate-500 block">2210... • FKIP</span>
+            </div>
+          </div>
+
+          <button id="btnLogoutUntidar" type="button" title="Keluar dari Akun Mahasiswa"
+            class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Quick Action: Tagline Kota & Mobile Toggle -->
@@ -113,17 +135,16 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobileNavDrawer"
       class="hidden md:hidden px-4 pt-2 pb-5 border-t border-slate-200/80 bg-white/98 space-y-3">
-      <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pilih Mode Tampilan:</p>
-      <div class="grid grid-cols-2 gap-2">
-        <button id="mobileBtnModeMhs" type="button"
-          class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all bg-indigo-700 text-white">
-          <i class="fa-solid fa-graduation-cap"></i>
-          <span>TIDARAKSA</span>
+      <div id="mobileNavButtons" class="space-y-2">
+        <button id="mobileBtnGatewayTidaraksa" type="button"
+          class="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-amber-600 to-indigo-900 text-white shadow-md">
+          <i class="fa-solid fa-graduation-cap text-amber-300"></i>
+          <span>Masuk Ruang Riset TIDARAKSA (UNTIDAR)</span>
         </button>
-        <button id="mobileBtnModeUmum" type="button"
-          class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100">
-          <i class="fa-solid fa-compass"></i>
-          <span>Bumi Magelang</span>
+        <button id="mobileBtnBackToBumi" type="button"
+          class="hidden w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all bg-emerald-50 text-emerald-800 border border-emerald-200">
+          <i class="fa-solid fa-compass text-emerald-600"></i>
+          <span>Kembali ke Bumi Magelang (Publik)</span>
         </button>
       </div>
     </div>
@@ -176,23 +197,77 @@
     </div>
   </section>
 
-  <!-- KONTEN UTAMA: SECTION MODE MAHASISWA -->
-  <main id="sectionMahasiswa" class="flex-1 py-10">
+  <!-- KONTEN UTAMA: SECTION MODE MAHASISWA (TIDARAKSA) -->
+  <main id="sectionMahasiswa" class="hidden flex-1 py-10 bg-[#fbf9f4]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-      <!-- Top Action Bar: Kategori Mata Kuliah & Tombol Catatan Riset -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
+      <!-- Student Banner & Workspace Info -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-amber-500/20 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl text-amber-400 pointer-events-none">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+              <i class="fa-solid fa-university"></i>
+              <span>Eksklusif Civitas Akademika Universitas Tidar</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+              Pustaka Manuskrip & Ruang Riset Kebudayaan
+            </h2>
+            <p id="workspaceGreeting" class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed font-serif">
+              Selamat datang di TIDARAKSA. Jelajahi modul kurikulum dalam format rak buku digital interaktif, salin sitasi ilmiah otomatis, atau diskusikan telaah relief dengan asisten AI TidarAI.
+            </p>
+          </div>
 
-        <!-- Filter Kategori Mata Kuliah -->
+          <div class="flex items-center gap-3 shrink-0">
+            <div class="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 text-center min-w-[95px]">
+              <span id="statsCountModul" class="text-2xl font-black text-amber-400 block">5</span>
+              <span class="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">Modul Riset</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 text-center min-w-[95px]">
+              <span id="statsCountBookmark" class="text-2xl font-black text-emerald-400 block">0</span>
+              <span class="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">Tersimpan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigasi Internal Workspace TIDARAKSA -->
+      <div id="tidaraksaWorkspaceTabs" class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        <button data-ws-tab="modul" type="button"
+          class="ws-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-indigo-700 text-white shadow-md shadow-indigo-200">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Modul Kajian Budaya</span>
+        </button>
+        <button data-ws-tab="lapangan" type="button"
+          class="ws-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50">
+          <i class="fa-solid fa-landmark"></i>
+          <span>Panduan Observasi Lapangan</span>
+        </button>
+        <button data-ws-tab="riset" type="button"
+          class="ws-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
+          <i class="fa-solid fa-bookmark text-amber-500"></i>
+          <span>Catatan Riset Saya</span>
+        </button>
+        <button data-ws-tab="ai" type="button"
+          class="ws-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50">
+          <i class="fa-solid fa-robot text-indigo-600"></i>
+          <span>Tanya TidarAI</span>
+        </button>
+      </div>
+
+      <!-- Filter Kategori & Tombol Bookmark Riset -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-amber-900/10">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">Filter Berdasarkan Mata
-            Kuliah / Bidang Ilmu:</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
+            Filter Rumpun Ilmu / Kurikulum:
+          </span>
           <div id="mahasiswaCategoryFilters" class="flex items-center gap-2 flex-wrap">
             <!-- Diisi otomatis oleh js/mahasiswa.js -->
           </div>
         </div>
 
-        <!-- Tombol Khusus: Catatan Riset / Bookmark Tersimpan -->
         <div class="flex items-center gap-2 self-start lg:self-end">
           <button id="btnFilterBookmarkMhs" type="button"
             class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
@@ -202,36 +277,23 @@
               class="hidden text-[10px] bg-amber-500 text-white font-bold px-1.5 py-0.5 rounded-full">0</span>
           </button>
         </div>
-
       </div>
 
-      <!-- Banner Info Relevansi Kuliah -->
-      <div
-        class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-2xl p-6 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div class="space-y-1">
-          <div class="flex items-center gap-2 text-indigo-300 text-xs font-semibold uppercase tracking-wider">
-            <i class="fa-solid fa-lightbulb"></i>
-            <span>Relevansi Kurikulum Perguruan Tinggi</span>
+      <!-- KONTEN RAK BUKU 3D INTERAKTIF (STRIPE PRESS STYLE) -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-book-bookmark text-amber-600 text-sm"></i>
+            <h3 class="text-base font-extrabold text-slate-900 tracking-tight">Koleksi Buku & Manuskrip Digital</h3>
           </div>
-          <h3 class="text-lg font-bold text-white">Bahan Rujukan Penelitian & Tugas Akhir Budaya Magelang</h3>
-          <p class="text-xs sm:text-sm text-indigo-200/90 max-w-3xl leading-relaxed">
-            Materi disusun dengan metodologi ilmiah, rujukan primer Prasasti & BPCB (Balai Pelestarian Cagar Budaya),
-            serta dilengkapi kutipan langsung sitasi format APA/Chicago yang siap Anda sematkan pada laporan kuliah.
-          </p>
+          <span class="text-xs text-slate-500 font-medium">Klik buku untuk membuka modul & sitasi</span>
         </div>
-        <div class="shrink-0 flex items-center gap-2">
-          <span
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-md text-xs font-semibold text-indigo-100 border border-white/10">
-            <i class="fa-solid fa-check-double text-emerald-400"></i>
-            Terverifikasi Akademik
-          </span>
-        </div>
-      </div>
 
-      <!-- Grid Kartu Materi Mahasiswa -->
-      <div id="mahasiswaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Diisi dinamis oleh js/mahasiswa.js -->
-      </div>
+        <!-- Grid Rak Buku 3D -->
+        <div id="mahasiswaGrid" class="bookshelf-perspective grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 pt-4 pb-12">
+          <!-- Diisi dinamis oleh js/mahasiswa.js -->
+        </div>
+      </section>
 
     </div>
   </main>
@@ -264,6 +326,76 @@
 
     </div>
   </main>
+
+  <!-- MODAL LOGIN MAHASISWA UNTIDAR -->
+  <div id="modalUntidarLogin" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto" role="dialog" aria-modal="true">
+    <div id="untidarLoginOverlay" class="fixed inset-0 modal-backdrop transition-opacity"></div>
+    <div class="relative bg-white rounded-3xl shadow-2xl border border-amber-200/90 max-w-md w-full overflow-hidden z-10 animate-fade-in">
+      
+      <!-- Modal Header dengan Identitas UNTIDAR -->
+      <div class="bg-gradient-to-r from-amber-600 via-amber-700 to-indigo-900 p-6 text-white text-center relative">
+        <button id="btnCloseUntidarLogin" type="button" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+        <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center mx-auto mb-3 shadow-inner text-amber-300 text-2xl">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <span class="text-[11px] font-bold tracking-widest uppercase bg-amber-400 text-amber-950 px-3 py-0.5 rounded-full inline-block mb-1">
+          Civitas Akademika UNTIDAR
+        </span>
+        <h3 class="text-xl font-extrabold text-white">Ruang Riset TIDARAKSA</h3>
+        <p class="text-xs text-amber-100/90 mt-1 max-w-xs mx-auto">
+          Masuk untuk mengakses Rak Manuskrip 3D, Asisten AI TidarAI, dan Modul Sitasi Tugas Akhir.
+        </p>
+      </div>
+
+      <!-- Form Login Mahasiswa -->
+      <form id="formUntidarLogin" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Mahasiswa</label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="loginNama" required placeholder="Contoh: Arya Satria Pratama" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 bg-slate-50 focus:bg-white transition-all" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nomor Induk Mahasiswa (NIM UNTIDAR)</label>
+          <div class="relative">
+            <i class="fa-solid fa-id-card absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="loginNim" required placeholder="Contoh: 2210401089" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 bg-slate-50 focus:bg-white transition-all font-mono" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Fakultas di Universitas Tidar</label>
+          <div class="relative">
+            <i class="fa-solid fa-building-columns absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+            <select id="loginFakultas" required class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 bg-slate-50 focus:bg-white transition-all">
+              <option value="FKIP">FKIP (Keguruan dan Ilmu Pendidikan)</option>
+              <option value="FE">FE (Fakultas Ekonomi)</option>
+              <option value="FISIP">FISIP (Ilmu Sosial dan Ilmu Politik)</option>
+              <option value="FT">FT (Fakultas Teknik)</option>
+              <option value="FAPERTA">FAPERTA (Fakultas Pertanian)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-2 space-y-2">
+          <button type="submit" class="w-full py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-amber-300 transition-all flex items-center justify-center gap-2">
+            <span>Masuk ke TIDARAKSA</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+          
+          <button id="btnUntidarDemoLogin" type="button" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-bolt text-amber-500"></i>
+            <span>Akses Cepat Demo Mahasiswa (1-Klik)</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
 
   <!-- GLOBAL MODAL DIALOG (Detail Baca Lengkap & Destinasi) -->
   <div id="globalModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
@@ -393,6 +525,7 @@
 
   <!-- Script Aplikasi Utama (Kompatibel file:// langsung maupun http://) -->
   <script src="js/data.js"></script>
+  <script src="js/tidar-ai.js"></script>
   <script src="js/mahasiswa.js"></script>
   <script src="js/umum.js"></script>
   <script src="js/app.js"></script>

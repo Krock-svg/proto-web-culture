@@ -101,3 +101,52 @@
     padding: 0 !important;
   }
 }
+
+/* ===================================================
+   3D BOOKSHELF & EDITORIAL READER STYLES (TIDARAKSA)
+   Inspirasi Stripe Press untuk Mahasiswa UNTIDAR
+   =================================================== */
+
+.bookshelf-shelf {
+  position: relative;
+  border-bottom: 14px solid #334155;
+  box-shadow: 0 16px 20px -8px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+}
+
+.bookshelf-perspective {
+  perspective: 1000px;
+}
+
+.book-card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+  transform: rotateY(-5deg) translateZ(0);
+}
+
+.book-card-3d:hover {
+  transform: translateY(-16px) translateZ(40px) rotateY(0deg) scale(1.03);
+  box-shadow: 0 25px 35px -8px rgba(15, 23, 42, 0.35), 0 10px 15px -5px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* Book Spine Visual Crease */
+.book-spine-crease {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 14px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.15) 30%, rgba(0,0,0,0.1) 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Warm Parchment Background for Academic Reader */
+.bg-parchment {
+  background-color: #fdfcf7;
+}
+
+.border-parchment {
+  border-color: #f1ebd8;
+}

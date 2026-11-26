@@ -55,12 +55,12 @@
   }
 
   /**
-   * Memperbarui badge jumlah materi yang disimpan
+   * Memperbarui badge jumlah materi yang disimpan & statistik workspace
    */
   function updateBookmarkBadgeCount() {
+    const count = getSavedBookmarkIds().length;
     const badgeEl = document.getElementById('bookmarkCountBadge');
     if (badgeEl) {
-      const count = getSavedBookmarkIds().length;
       badgeEl.textContent = count;
       if (count > 0) {
         badgeEl.classList.remove('hidden');
@@ -68,15 +68,113 @@
         badgeEl.classList.add('hidden');
       }
     }
+    const statsBookmark = document.getElementById('statsCountBookmark');
+    if (statsBookmark) statsBookmark.textContent = count;
+
+    const statsModul = document.getElementById('statsCountModul');
+    if (statsModul) statsModul.textContent = getData().length;
   }
 
   /**
    * Inisialisasi tampilan Mode Mahasiswa
    */
   function initMahasiswaView() {
+    setupWorkspaceTabs();
     setupFilterButtons();
     updateBookmarkBadgeCount();
     renderMahasiswaContent();
+  }
+
+  /**
+   * Setup navigasi tab internal Workspace TIDARAKSA
+   */
+  function setupWorkspaceTabs() {
+    const tabBtns = document.querySelectorAll('.ws-tab-btn');
+    if (!tabBtns.length) return;
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.wsTab;
+
+        if (tab === 'ai') {
+          if (window.TidarAI) {
+            window.TidarAI.askQuestion('Halo TidarAI! Berikan rekomendasi topik penelitian budaya Magelang untuk mahasiswa UNTIDAR.');
+          }
+          return;
+        }
+
+        // Update active button style
+        tabBtns.forEach(b => {
+          if (b.dataset.wsTab === tab) {
+            b.className = 'ws-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-indigo-700 text-white shadow-md shadow-indigo-200';
+          } else {
+            b.className = 'ws-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50';
+          }
+        });
+
+        if (tab === 'modul') {
+          showingBookmarksOnly = false;
+          setupFilterButtons();
+          renderMahasiswaContent();
+        } else if (tab === 'riset') {
+          showingBookmarksOnly = true;
+          setupFilterButtons();
+          renderMahasiswaContent();
+        } else if (tab === 'lapangan') {
+          renderFieldworkGuide();
+        }
+      });
+    });
+  }
+
+  /**
+   * Render Panduan Observasi Lapangan khusus Mahasiswa UNTIDAR
+   */
+  function renderFieldworkGuide() {
+    const container = document.getElementById('mahasiswaGrid');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="col-span-full space-y-6">
+        <div class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Lembar Observasi Lapangan Mahasiswa UNTIDAR</h3>
+              <p class="text-xs text-slate-500">Panduan praktis saat melakukan kunjungan riset ke Candi Borobudur, Mendut, Pawon, atau Situs Canggal.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <h4 class="text-sm font-bold text-indigo-900 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs flex items-center justify-center">1</span>
+                Observasi Struktur & Kosmologi
+              </h4>
+              <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-5">
+                <li>Amati perbedaan material dan teknik sambungan batu andesit tanpa perekat semen.</li>
+                <li>Catat transisi visual dari tingkat <strong>Kamadhatu</strong>, <strong>Rupadhatu</strong>, hingga <strong>Arupadhatu</strong>.</li>
+                <li>Identifikasi sistem drainase (jaladwara) dan konservasi batuan oleh BPCB.</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <h4 class="text-sm font-bold text-amber-900 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center">2</span>
+                Dokumentasi Relief & Refleksi
+              </h4>
+              <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-5">
+                <li>Pilih minimal 2 panil relief (<em>Lalitavistara</em> atau <em>Jataka</em>) untuk dianalisis nilai moralnya.</li>
+                <li>Kaitkan temuan lapangan dengan nilai <strong>Karakter Tidar</strong> dan konteks pariwisata berkelanjutan.</li>
+                <li>Gunakan asisten <strong>TidarAI</strong> untuk membantu menyusun sitasi APA/Chicago laporan Anda.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   /**

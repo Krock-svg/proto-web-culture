@@ -9,7 +9,74 @@
  */
 
 const STORAGE_MODE_KEY = 'pesona_magelang_active_mode';
-let currentMode = 'mahasiswa'; // default mode: 'mahasiswa' atau 'umum'
+const STORAGE_UNTIDAR_SESSION = 'tidaraksa_untidar_session';
+let currentMode = 'umum'; // default mode: 'umum' (Bumi Magelang)
+
+function getUntidarSession() {
+  try {
+    const raw = localStorage.getItem(STORAGE_UNTIDAR_SESSION);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function isUntidarLoggedIn() {
+  return !!getUntidarSession();
+}
+
+function openUntidarLoginModal() {
+  const modal = document.getElementById('modalUntidarLogin');
+  if (modal) {
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    const input = document.getElementById('loginNama');
+    if (input) input.focus();
+  }
+}
+
+function closeUntidarLoginModal() {
+  const modal = document.getElementById('modalUntidarLogin');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+}
+
+function loginUntidar(nama, nim, fakultas) {
+  const session = {
+    nama: nama || 'Mahasiswa Untidar',
+    nim: nim || '2210401089',
+    fakultas: fakultas || 'FKIP',
+    loginTime: new Date().toISOString()
+  };
+  localStorage.setItem(STORAGE_UNTIDAR_SESSION, JSON.stringify(session));
+  closeUntidarLoginModal();
+  switchMode('mahasiswa');
+  showToast(`Selamat datang di TIDARAKSA, ${session.nama}!`, 'success');
+}
+
+function logoutUntidar() {
+  localStorage.removeItem(STORAGE_UNTIDAR_SESSION);
+  switchMode('umum');
+  showToast('Anda telah keluar dari akun mahasiswa Untidar.', 'info');
+}
+
+function switchMode(mode) {
+  if (mode === 'mahasiswa' && !isUntidarLoggedIn()) {
+    openUntidarLoginModal();
+    return;
+  }
+  currentMode = mode;
+  localStorage.setItem(STORAGE_MODE_KEY, currentMode);
+  applyActiveMode(currentMode, true);
+
+  // Tutup mobile drawer jika terbuka
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  if (mobileNavDrawer && !mobileNavDrawer.classList.contains('hidden')) {
+    mobileNavDrawer.classList.add('hidden');
+  }
+}
 
 function getMahasiswaData() {
   return window.dataMahasiswa || [];
@@ -22,8 +89,10 @@ function getUmumData() {
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Baca preferensi mode tersimpan di localStorage (jika ada)
   const savedMode = localStorage.getItem(STORAGE_MODE_KEY);
-  if (savedMode === 'mahasiswa' || savedMode === 'umum') {
-    currentMode = savedMode;
+  if (savedMode === 'mahasiswa' && isUntidarLoggedIn()) {
+    currentMode = 'mahasiswa';
+  } else {
+    currentMode = 'umum'; // Default landing: Bumi Magelang
   }
 
   // 2. Setup Mode Switcher Toggle
@@ -40,25 +109,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Konfigurasi tombol switcher mode di navbar
+ * Konfigurasi tombol switcher mode di navbar & gerbang login UNTIDAR
  */
 function setupModeSwitcher() {
-  const btnModeMhs = document.getElementById('btnModeMhs');
-  const btnModeUmum = document.getElementById('btnModeUmum');
-  const mobileBtnModeMhs = document.getElementById('mobileBtnModeMhs');
-  const mobileBtnModeUmum = document.getElementById('mobileBtnModeUmum');
+  const btnGateway = document.getElementById('btnGatewayTidaraksa');
+  const mobileBtnGateway = document.getElementById('mobileBtnGatewayTidaraksa');
+  const btnBackToBumi = document.getElementById('btnBackToBumi');
+  const mobileBtnBackToBumi = document.getElementById('mobileBtnBackToBumi');
+  const btnLogout = document.getElementById('btnLogoutUntidar');
 
-  const switchMode = (mode) => {
-    if (currentMode === mode) return;
-    currentMode = mode;
-    localStorage.setItem(STORAGE_MODE_KEY, currentMode);
-    applyActiveMode(currentMode, true);
+  // Tombol Masuk TIDARAKSA
+  const handleGatewayClick = () => {
+    if (isUntidarLoggedIn()) {
+      switchMode('mahasiswa');
+    } else {
+      openUntidarLoginModal();
+    }
   };
 
-  if (btnModeMhs) btnModeMhs.addEventListener('click', () => switchMode('mahasiswa'));
-  if (btnModeUmum) btnModeUmum.addEventListener('click', () => switchMode('umum'));
-  if (mobileBtnModeMhs) mobileBtnModeMhs.addEventListener('click', () => switchMode('mahasiswa'));
-  if (mobileBtnModeUmum) mobileBtnModeUmum.addEventListener('click', () => switchMode('umum'));
+  if (btnGateway) btnGateway.addEventListener('click', handleGatewayClick);
+  if (mobileBtnGateway) mobileBtnGateway.addEventListener('click', handleGatewayClick);
+
+  // Tombol Kembali ke Bumi Magelang
+  if (btnBackToBumi) btnBackToBumi.addEventListener('click', () => switchMode('umum'));
+  if (mobileBtnBackToBumi) mobileBtnBackToBumi.addEventListener('click', () => switchMode('umum'));
+
+  // Tombol Logout Mahasiswa
+  if (btnLogout) btnLogout.addEventListener('click', logoutUntidar);
+
+  // Modal Login Untidar Events
+  const closeLoginBtn = document.getElementById('btnCloseUntidarLogin');
+  const loginOverlay = document.getElementById('untidarLoginOverlay');
+  const loginForm = document.getElementById('formUntidarLogin');
+  const demoLoginBtn = document.getElementById('btnUntidarDemoLogin');
+
+  if (closeLoginBtn) closeLoginBtn.addEventListener('click', closeUntidarLoginModal);
+  if (loginOverlay) loginOverlay.addEventListener('click', closeUntidarLoginModal);
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nama = document.getElementById('loginNama').value.trim();
+      const nim = document.getElementById('loginNim').value.trim();
+      const fakultas = document.getElementById('loginFakultas').value;
+      loginUntidar(nama, nim, fakultas);
+    });
+  }
+
+  if (demoLoginBtn) {
+    demoLoginBtn.addEventListener('click', () => {
+      loginUntidar('Arya Satria Pratama', '2210401089', 'FKIP');
+    });
+  }
 
   // Mobile menu drawer toggle
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
@@ -68,16 +170,21 @@ function setupModeSwitcher() {
       mobileNavDrawer.classList.toggle('hidden');
     });
   }
+
+  // Inisialisasi TidarAI widget
+  if (window.TidarAI) {
+    window.TidarAI.init();
+  }
 }
 
 /**
  * Terapkan mode aktif ke UI
  */
 function applyActiveMode(mode, animate = true) {
-  const btnModeMhs = document.getElementById('btnModeMhs');
-  const btnModeUmum = document.getElementById('btnModeUmum');
-  const mobileBtnModeMhs = document.getElementById('mobileBtnModeMhs');
-  const mobileBtnModeUmum = document.getElementById('mobileBtnModeUmum');
+  const navBumiActions = document.getElementById('navBumiActions');
+  const navTidaraksaActions = document.getElementById('navTidaraksaActions');
+  const mobileBtnGateway = document.getElementById('mobileBtnGatewayTidaraksa');
+  const mobileBtnBackToBumi = document.getElementById('mobileBtnBackToBumi');
 
   const sectionMahasiswa = document.getElementById('sectionMahasiswa');
   const sectionUmum = document.getElementById('sectionUmum');
@@ -91,32 +198,44 @@ function applyActiveMode(mode, animate = true) {
   if (globalSearchInput) globalSearchInput.value = '';
 
   if (mode === 'mahasiswa') {
-    // Update Switcher Button Styling (Mahasiswa Active)
-    const activeClasses = 'bg-indigo-700 text-white shadow-md shadow-indigo-300 font-bold';
-    const inactiveClasses = 'text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-100';
+    const session = getUntidarSession() || { nama: 'Mahasiswa Untidar', nim: '2210...', fakultas: 'FKIP' };
 
-    if (btnModeMhs) btnModeMhs.className = `flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all ${activeClasses}`;
-    if (btnModeUmum) btnModeUmum.className = `flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all ${inactiveClasses}`;
+    // Navbar Desktop
+    if (navBumiActions) navBumiActions.classList.add('hidden');
+    if (navTidaraksaActions) navTidaraksaActions.classList.remove('hidden');
 
-    if (mobileBtnModeMhs) mobileBtnModeMhs.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${activeClasses}`;
-    if (mobileBtnModeUmum) mobileBtnModeUmum.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${inactiveClasses}`;
+    // Update Nama Mahasiswa di Navbar
+    const navStudentName = document.getElementById('navStudentName');
+    const navStudentMeta = document.getElementById('navStudentMeta');
+    if (navStudentName) navStudentName.textContent = session.nama;
+    if (navStudentMeta) navStudentMeta.textContent = `${session.nim} • ${session.fakultas}`;
+
+    // Mobile Navbar
+    if (mobileBtnGateway) mobileBtnGateway.classList.add('hidden');
+    if (mobileBtnBackToBumi) mobileBtnBackToBumi.classList.remove('hidden');
 
     // Update Hero Content untuk Mahasiswa (TIDARAKSA)
     if (heroTagBadge) {
-      heroTagBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-950/80 backdrop-blur-md text-indigo-200 border border-indigo-400/40 shadow-lg';
-      heroTagBadge.innerHTML = '<i class="fa-solid fa-graduation-cap text-amber-300"></i> Ruang Eksplorasi Digital • TIDARAKSA';
+      heroTagBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-amber-950/80 backdrop-blur-md text-amber-200 border border-amber-400/40 shadow-lg';
+      heroTagBadge.innerHTML = '<i class="fa-solid fa-graduation-cap text-amber-300"></i> Pustaka Digital • TIDARAKSA UNTIDAR';
     }
 
     if (heroTitle) {
-      heroTitle.innerHTML = 'Belajar Lebih Mudah, Jelajah Lebih Luas Bersama <span class="text-amber-300 underline decoration-amber-400/80">TIDARAKSA</span>';
+      heroTitle.innerHTML = 'Eksplorasi Naskah & Riset Budaya Bersama <span class="text-amber-300 underline decoration-amber-400/80">TIDARAKSA</span>';
     }
 
     if (heroDescription) {
-      heroDescription.textContent = 'TIDARAKSA merupakan ruang eksplorasi digital yang mengajak mahasiswa mengenal lebih dekat sejarah, budaya, dan berbagai potensi lokal Magelang. Mulai dari wawasan edukatif, kisah peninggalan sejarah, tradisi budaya, hingga destinasi wisata yang menyimpan nilai dan cerita. Temukan berbagai informasi, referensi, serta layanan wisata dalam satu tempat untuk memperluas pengetahuan sekaligus merasakan pengalaman menjelajahi Magelang!';
+      heroDescription.textContent = `Selamat datang, ${session.nama} (${session.fakultas}, Universitas Tidar). Nikmati akses eksklusif ke pustaka manuskrip 3D, bedah relief & prasasti kuno, format sitasi ilmiah otomatis, serta pendampingan riset interaktif bersama TidarAI!`;
     }
 
     if (globalSearchInput) {
       globalSearchInput.placeholder = 'Cari materi kuliah, teori, prasasti, atau nama candi...';
+    }
+
+    // Update Greeting di Workspace
+    const workspaceGreeting = document.getElementById('workspaceGreeting');
+    if (workspaceGreeting) {
+      workspaceGreeting.innerHTML = `Selamat datang, <strong>${session.nama}</strong> (${session.nim} - Fakultas ${session.fakultas}). Koleksi buku di bawah disusun berjejer dalam format rak 3D interaktif. Klik buku untuk membaca kajian mendalam, mengutip sitasi, atau diskusikan telaah relief dengan asisten cerdas TidarAI.`;
     }
 
     // Toggle Section Display
@@ -128,19 +247,21 @@ function applyActiveMode(mode, animate = true) {
       sectionUmum.classList.add('hidden');
     }
 
+    // Tampilkan AI Chatbot
+    if (window.TidarAI) {
+      window.TidarAI.setVisibility(true);
+    }
+
     if (window.MahasiswaModule) {
       window.MahasiswaModule.initMahasiswaView();
     }
   } else {
-    // Mode Umum Active
-    const activeClasses = 'bg-emerald-700 text-white shadow-md shadow-emerald-300 font-bold';
-    const inactiveClasses = 'text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-100';
+    // Mode Umum (Bumi Magelang Active)
+    if (navBumiActions) navBumiActions.classList.remove('hidden');
+    if (navTidaraksaActions) navTidaraksaActions.classList.add('hidden');
 
-    if (btnModeUmum) btnModeUmum.className = `flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all ${activeClasses}`;
-    if (btnModeMhs) btnModeMhs.className = `flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all ${inactiveClasses}`;
-
-    if (mobileBtnModeUmum) mobileBtnModeUmum.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${activeClasses}`;
-    if (mobileBtnModeMhs) mobileBtnModeMhs.className = `w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs transition-all ${inactiveClasses}`;
+    if (mobileBtnGateway) mobileBtnGateway.classList.remove('hidden');
+    if (mobileBtnBackToBumi) mobileBtnBackToBumi.classList.add('hidden');
 
     // Update Hero Content untuk Umum (Bumi Magelang)
     if (heroTagBadge) {
@@ -167,6 +288,11 @@ function applyActiveMode(mode, animate = true) {
     if (sectionUmum) {
       sectionUmum.classList.remove('hidden');
       if (animate) sectionUmum.classList.add('animate-fade-in');
+    }
+
+    // Sembunyikan AI Chatbot di mode umum
+    if (window.TidarAI) {
+      window.TidarAI.setVisibility(false);
     }
 
     if (window.UmumModule) {
