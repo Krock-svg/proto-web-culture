@@ -327,7 +327,6 @@
               <button 
                 data-action="bookmark-mhs" 
                 data-id="${item.id}"
-                onclick="event.stopPropagation()"
                 title="${isBookmarked ? 'Hapus dari Catatan Riset' : 'Simpan ke Catatan Riset'}"
                 class="w-8 h-8 rounded-full flex items-center justify-center transition-transform active:scale-90 shrink-0 ${isBookmarked
                   ? 'bg-amber-500 text-white shadow-md shadow-amber-500/40'
