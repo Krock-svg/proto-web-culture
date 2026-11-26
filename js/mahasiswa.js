@@ -312,7 +312,7 @@
 
       return `
         <article class="book-card-3d rounded-r-2xl rounded-l-md bg-gradient-to-br ${themeClass} border shadow-xl flex flex-col justify-between overflow-hidden cursor-pointer min-h-[340px] group relative"
-          data-action="baca-mhs" data-id="${item.id}">
+          data-action="detail-mhs" data-id="${item.id}">
           <!-- Efek Punggung Buku 3D -->
           <div class="book-spine-crease"></div>
 
@@ -367,45 +367,6 @@
               <span class="inline-flex items-center gap-1 font-bold text-amber-300 group-hover:translate-x-1 transition-transform">
                 Buka Buku <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </span>
-            </div>
-          </div>
-        </article>
-      `;
-    }).join('');
-              <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4">
-                ${item.abstrak}
-              </p>
-
-              <!-- Tag Kata Kunci -->
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                ${item.keywords.slice(0, 3).map(kw => `
-                  <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">#${kw}</span>
-                `).join('')}
-              </div>
-            </div>
-
-            <!-- Footer Kartu: Referensi & Aksi -->
-            <div class="pt-3 border-t border-slate-100 mt-auto">
-              <div class="flex items-center justify-between gap-2">
-                <!-- Tombol Salin Sitasi Cepat -->
-                <button 
-                  data-action="copy-citation" 
-                  data-id="${item.id}"
-                  title="Salin Sitasi Ilmiah Format APA"
-                  class="flex items-center gap-1.5 text-xs text-slate-600 hover:text-indigo-600 font-medium py-1.5 px-2.5 rounded-lg hover:bg-indigo-50 border border-slate-200 transition-colors">
-                  <i class="fa-solid fa-quote-right text-indigo-500 text-[11px]"></i>
-                  <span>Sitasi APA</span>
-                </button>
-
-                <!-- Tombol Baca Lengkap -->
-                <button 
-                  data-action="detail-mhs" 
-                  data-id="${item.id}"
-                  class="flex items-center gap-1.5 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white py-1.5 px-3.5 rounded-lg shadow-sm hover:shadow transition-all">
-                  <span>Pelajari Modul</span>
-                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </button>
-              </div>
             </div>
           </div>
         </article>
