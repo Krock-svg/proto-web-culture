@@ -236,6 +236,7 @@ const dataUmum = {
       rating: 4.9,
       ulasan: 18450,
       hargaTiket: "Rp 50.000 (Reguler) / Rp 150.000 (Naik Monumen)",
+      hargaNumerik: 50000,
       jamBuka: "06.30 - 16.30 WIB",
       lokasi: "Jl. Badrawati, Kawasan Candi Borobudur, Kec. Borobudur, Magelang",
       fasilitas: ["Museum Karmawibhangga", "Museum Samudraraksa", "Mobil Listrik Shuttle", "Pemandu Resmi", "Musholla & Toilet Bersih", "Pusat Cendera Mata"],
@@ -251,6 +252,7 @@ const dataUmum = {
       rating: 4.7,
       ulasan: 5320,
       hargaTiket: "Rp 15.000 / orang",
+      hargaNumerik: 15000,
       jamBuka: "06.00 - 17.30 WIB",
       lokasi: "Dusun Butuh, Desa Temanggung, Kec. Kaliangkrik, Magelang",
       fasilitas: ["Ojek Wisata Lereng", "Spot Foto Gardu Pandang", "Warung Kopi & Kuliner Hangat", "Homestay Warga", "Musholla"],
@@ -266,6 +268,7 @@ const dataUmum = {
       rating: 4.8,
       ulasan: 7890,
       hargaTiket: "Rp 20.000 (Domestik) / Rp 50.000 (Mancanegara)",
+      hargaNumerik: 20000,
       jamBuka: "04.00 - 17.00 WIB",
       lokasi: "Dusun Kurahan, Desa Karangrejo, Kec. Borobudur, Magelang",
       fasilitas: ["Gardu Pandang Sunrise", "Gazebo Istirahat", "Jalur Tracking Berbatu Rapi", "Warung Kopi Pagi", "Toilet"],
@@ -281,6 +284,7 @@ const dataUmum = {
       rating: 4.6,
       ulasan: 9400,
       hargaTiket: "Rp 12.500 (Hari Biasa) / Rp 15.000 (Akhir Pekan)",
+      hargaNumerik: 15000,
       jamBuka: "08.00 - 17.00 WIB",
       lokasi: "Jl. Blabak - Boyolali KM 16, Ketep, Kec. Sawangan, Magelang",
       fasilitas: ["Bioskop Vulkanologi (Ketep Volcano Theatre)", "Teropong Bintang & Gunung", "Museum Vulkanologi", "Pelataran Panca Arga", "Restoran"],
@@ -296,6 +300,7 @@ const dataUmum = {
       rating: 4.7,
       ulasan: 6120,
       hargaTiket: "Rp 30.000 (Dewasa) / Rp 15.000 (Anak-anak)",
+      hargaNumerik: 30000,
       jamBuka: "08.00 - 17.00 WIB (Tutup Hari Kamis)",
       lokasi: "Jl. Borobudur - Ngadiharjo, Ngaran Lor, Borobudur, Magelang",
       fasilitas: ["Jembatan Papan Kayu di Atas Sawah", "22+ Spot Foto Unik", "Kolam Santai", "Cafe Sawah", "Area Parkir Luas"],
@@ -311,6 +316,7 @@ const dataUmum = {
       rating: 4.5,
       ulasan: 2800,
       hargaTiket: "Rp 10.000 / orang",
+      hargaNumerik: 10000,
       jamBuka: "06.00 - 17.30 WIB",
       lokasi: "Desa Kartoharjo, Kec. Grabag, Magelang",
       fasilitas: ["Dua Kolam Batu Andesit Kuno", "Pancuran Air Alami", "Taman Asri", "Ruang Ganti & Bilas", "Warung Kuliner Grabag"],
@@ -331,6 +337,7 @@ const dataUmum = {
       rating: 4.95,
       totalTur: 920,
       tarif: "Mulai Rp 350.000 / sesi tur candi",
+      hargaNumerik: 350000,
       waPhone: "6281234567801",
       foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
       deskripsi: "Alumnus Arkeologi yang mendedikasikan hidupnya menjelaskan keagungan relief Borobudur dan Mendut dengan gaya bertutur kisah yang hidup, mendalam, dan ilmiah."
@@ -345,6 +352,7 @@ const dataUmum = {
       rating: 4.88,
       totalTur: 540,
       tarif: "Mulai Rp 300.000 / hari (Outdoor Trekking)",
+      hargaNumerik: 300000,
       waPhone: "6281234567802",
       foto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
       deskripsi: "Spesialis rute trekking alam lereng gunung, pengamatan vulkanologi Merapi yang aman, dan sudut pandang fotografi tersembunyi (*hidden gems*) di lereng Sumbing."
@@ -359,6 +367,7 @@ const dataUmum = {
       rating: 4.92,
       totalTur: 710,
       tarif: "Mulai Rp 250.000 / tur desa wisata",
+      hargaNumerik: 250000,
       waPhone: "6281234567803",
       foto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
       deskripsi: "Warga asli Borobudur yang piawai mengajak wisatawan berinteraksi langsung dengan pengrajin gerabah, memanen padi bersama petani, dan mencicipi masakan pawon desa."
@@ -373,6 +382,7 @@ const dataUmum = {
       rating: 4.9,
       totalTur: 480,
       tarif: "Mulai Rp 400.000 / sesi sunrise & hunting foto",
+      hargaNumerik: 400000,
       waPhone: "6281234567804",
       foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
       deskripsi: "Membantu Anda mendapatkan komposisi foto terbaik pada jam-jam emas (*golden hour*) di perbukitan Magelang dan mendokumentasikan momen liburan dengan kamera profesional."
@@ -387,6 +397,7 @@ const dataUmum = {
       bintang: 5,
       rating: 4.9,
       kisaranHarga: "Rp 3.500.000 - Rp 7.500.000 / malam",
+      hargaNumerik: 3500000,
       lokasi: "Dusun Tanjungan, Kec. Borobudur, Magelang",
       fasilitas: ["Private Pool Villa", "View Langsung Candi Borobudur & Menoreh", "Padma Spa", "The Colonial Restaurant", "Yoga Deck"],
       deskripsi: "Resort mewah bernuansa arsitektur kolonial-jawa di tengah hutan jati bukit Tanjungan. Memberikan suasana privat berkelas dunia dengan pemandangan siluet Candi Borobudur dari balkon villa.",
@@ -400,6 +411,7 @@ const dataUmum = {
       bintang: 5,
       rating: 4.7,
       kisaranHarga: "Rp 650.000 - Rp 2.200.000 / malam",
+      hargaNumerik: 650000,
       lokasi: "Jl. Cempaka No. 9, Kemirirejo, Kota Magelang",
       fasilitas: ["Taman Tropis 22 Hektar", "Tepi Sungai Progo (River View)", "Kolam Renang Luas", "Outbound & Rafting Access", "Restoran Apung"],
       deskripsi: "Hotel legendaris dengan lanskap taman tropis nan rimbun di pusat Kota Magelang. Menghadap langsung aliran Sungai Progo dan sawah asri, memadukan kenyamanan hotel bintang lima dengan udara sejuk pegunungan.",
@@ -413,6 +425,7 @@ const dataUmum = {
       bintang: 4,
       rating: 4.6,
       kisaranHarga: "Rp 550.000 - Rp 1.400.000 / malam",
+      hargaNumerik: 550000,
       lokasi: "Jl. Jenderal Sudirman No. 42, Kota Magelang",
       fasilitas: ["Ballroom Konferensi", "Kolam Renang Luar Ruangan", "Fitness Centre & Spa", "Bateeq Lounge", "Dekat Pusat Belanja Artos Mall"],
       deskripsi: "Pilihan utama akomodasi modern bagi pebisnis, akademisi, dan keluarga yang membutuhkan kenyamanan fasilitas hotel modern dengan akses cepat ke pusat kota Magelang.",
@@ -426,6 +439,7 @@ const dataUmum = {
       bintang: 4,
       rating: 4.8,
       kisaranHarga: "Rp 150.000 - Rp 350.000 / malam",
+      hargaNumerik: 150000,
       lokasi: "Desa Candirejo, Kec. Borobudur, Magelang (3 km dari Borobudur)",
       fasilitas: ["Kamar Bersih Tradisional Jawa", "Sarapan Masakan Pawon Desa", "Paket Tur Andong & Sepeda Ontel", "Belajar Memasak Makanan Tradisional", "Wifi"],
       deskripsi: "Pengalaman menginap otentik bersama warga lokal di desa wisata peraih penghargaan UNWTO. Rasakan ketenangan hidup pedesaan, menyantap sayur lodeh segar dari kebun, dan menikmati malam bertabur bintang di pedesaan Borobudur.",
@@ -609,7 +623,118 @@ Getuk Trio dibuat dari singkong mentega yang dikukus matang, ditumbuk halus sela
   ]
 };
 
+// Dataset AR Heritage Explorer (Koordinat GPS & Daftar Objek 3D per Lokasi)
+const arHeritageSites = [
+  {
+    siteId: "borobudur",
+    siteName: "Kawasan Candi Borobudur",
+    kecamatan: "Kec. Borobudur, Magelang",
+    lat: -7.607874,
+    lng: 110.203751,
+    radiusMeter: 1500,
+    deskripsiArea: "Kompleks Candi Buddha Mahayana terbesar di dunia peninggalan Dinasti Syailendra abad ke-8 Masehi.",
+    objects: [
+      {
+        id: "ar-borobudur-utama",
+        nama: "Monumen Candi Borobudur (Struktur 3 Tingkat)",
+        kategori: "Arsitektur Candi",
+        era: "Abad ke-8 – ke-9 Masehi (Wangsa Syailendra)",
+        modelUrl: "assets/models/borobudur.glb",
+        posterImage: "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=800&q=80",
+        ringkasan: "Tersusun dari sekitar 2 juta blok batu andesit tanpa perekat semen, melambangkan kosmologi 3 tingkatan kesadaran: Kamadhatu, Rupadhatu, dan Arupadhatu.",
+        sejarah: `Candi Borobudur dibangun sekitar tahun 750–825 Masehi pada masa kejayaan Wangsa Syailendra di Dataran Kedu. Dirancang sebagai mandala batu raksasa dan "buku" ajaran Buddha yang dibaca sambil berjalan searah jarum jam (pradaksina).
+
+• **Kamadhatu (Dasar)**: Dunia keinginan duniawi dengan 160 panel relief Karmawibhangga.
+• **Rupadhatu (Tengah)**: Lorong persegi berisi 1.460 panel relief naratif Lalitavistara, Jataka, dan Gandavyuha.
+• **Arupadhatu (Puncak)**: Teras melingkar tanpa relief dengan 72 stupa berterawang dan 1 stupa induk raksasa di puncaknya.`
+      },
+      {
+        id: "ar-stupa-induk",
+        nama: "Stupa Induk & Stupa Berterawang Arupadhatu",
+        kategori: "Elemen Sakral",
+        era: "Abad ke-8 Masehi",
+        modelUrl: "assets/models/stupa.glb",
+        posterImage: "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+        ringkasan: "72 stupa berlubang belah ketupat dan bujur sangkar yang mengelilingi stupa induk polos sebagai simbol pencapaian Nirwana.",
+        sejarah: `Teras Arupadhatu berada di puncak Candi Borobudur dan terdiri dari tiga teras melingkar yang polos tanpa relief. Di sini terdapat 72 stupa berterawang yang di dalamnya bersemayam arca Buddha Dhyani Vairocana dalam mudra Dharmacakra (memutar roda dharma).
+
+Stupa induk di pusat melambangkan keesaan mutlak (Sunyata) — puncak perjalanan spiritual manusia setelah melepaskan keterikatan duniawi.`
+      }
+    ]
+  },
+  {
+    siteId: "mendut",
+    siteName: "Kawasan Candi Mendut",
+    kecamatan: "Kec. Mungkid, Magelang",
+    lat: -7.604833,
+    lng: 110.230028,
+    radiusMeter: 1200,
+    deskripsiArea: "Candi bercorak Buddha yang berdiri satu garis lurus sakral (Triad Borobudur–Pawon–Mendut) dan menjadi titik awal prosesi Waisak.",
+    objects: [
+      {
+        id: "ar-mendut-utama",
+        nama: "Candi Mendut & Arca Dhyani Buddha",
+        kategori: "Arsitektur Candi",
+        era: "Abad ke-9 Masehi (Raja Indra / Syailendra)",
+        modelUrl: "assets/models/mendut.glb",
+        posterImage: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80",
+        ringkasan: "Dibangun lebih tua daripada Borobudur, menyimpan tiga arca batu monolitik raksasa di bilik utamanya.",
+        sejarah: `Candi Mendut berada 3 km di sebelah timur Candi Borobudur. Berdasarkan Prasasti Karangtengah (824 M), candi ini didirikan oleh Raja Indra dari Dinasti Syailendra.
+
+Di dalam bilik utama terdapat tiga arca agung setinggi lebih dari 2,5 meter: Dhyani Buddha Sakyamuni yang duduk dengan kedua kaki menjuntai (Pralambapadasana), diapit oleh Bodhisattwa Awalokiteswara dan Vajrapani.`
+      }
+    ]
+  },
+  {
+    siteId: "pawon",
+    siteName: "Kawasan Candi Pawon",
+    kecamatan: "Desa Brojonalan, Borobudur",
+    lat: -7.606139,
+    lng: 110.219556,
+    radiusMeter: 1000,
+    deskripsiArea: "Candi persinggahan antara Candi Mendut dan Candi Borobudur dalam poros garis lurus sakral.",
+    objects: [
+      {
+        id: "ar-pawon-utama",
+        nama: "Candi Pawon (Vajranalan)",
+        kategori: "Arsitektur Candi",
+        era: "Abad ke-8 – ke-9 Masehi",
+        modelUrl: "assets/models/pawon.glb",
+        posterImage: "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+        ringkasan: "Candi ramping berhiaskan relief Kalpataru (pohon pengharapan) dan pundi-pundi harta kekayaan.",
+        sejarah: `Candi Pawon terletak tepat di antara Candi Mendut (1,15 km ke timur) dan Borobudur (1,75 km ke barat) pada satu garis lurus astronomis. 
+
+Nama 'Pawon' oleh sebagian ahli dikaitkan dengan 'awu' (abu) atau 'Brajanalan' (api suci penjernih batin) sebelum umat melangkah memasuki Candi Borobudur.`
+      }
+    ]
+  },
+  {
+    siteId: "umbul",
+    siteName: "Situs Petirtaan Candi Umbul",
+    kecamatan: "Kec. Grabag, Magelang",
+    lat: -7.367222,
+    lng: 110.303611,
+    radiusMeter: 1500,
+    deskripsiArea: "Kolam pemandian air hangat kuno peninggalan Dinasti Mataram Kuno abad ke-9 Masehi.",
+    objects: [
+      {
+        id: "ar-umbul-utama",
+        nama: "Kolam Batu Andesit & Jaladwara Candi Umbul",
+        kategori: "Situs Petirtaan",
+        era: "Abad ke-9 Masehi (Mataram Kuno)",
+        modelUrl: "assets/models/candi-umbul.glb",
+        posterImage: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80",
+        ringkasan: "Kompleks pemandian bangsawan kuno dengan sumber mata air hangat alami yang terus memancur hingga kini.",
+        sejarah: `Candi Umbul adalah situs petirtaan (pemandian suci) peninggalan Kerajaan Mataram Kuno. Terdiri dari dua kolam berundak dari batu andesit dengan hiasan relief flora, fauna, serta batu umpak dan lingga-yoni.
+
+Airnya keluar langsung dari dasar kolam berupa gelembung air hangat (umbul) yang dipercaya berkhasiat bagi kesehatan sejak era para raja Mataram.`
+      }
+    ]
+  }
+];
+
 // Pasang ke window agar dapat diakses tanpa batasan CORS pada protokol file:// maupun http://
 window.dataMahasiswa = dataMahasiswa;
 window.dataUmum = dataUmum;
+window.arHeritageSites = arHeritageSites;
 

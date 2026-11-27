@@ -253,6 +253,9 @@ function applyActiveMode(mode, animate = true) {
     if (window.TidarAI) {
       window.TidarAI.setVisibility(true);
     }
+    if (window.ArHeritageModule) {
+      window.ArHeritageModule.stopCameraScan();
+    }
 
     if (window.MahasiswaModule) {
       window.MahasiswaModule.initMahasiswaView();
@@ -389,7 +392,33 @@ function setupGlobalEvents() {
       return;
     }
 
-    // 6. Tombol Tutup Modal
+    // 6. Tombol Booking Layanan (Destinasi / Tour Guide / Penginapan)
+    const bookBtn = e.target.closest('[data-action="book-service"]');
+    if (bookBtn) {
+      const bookType = bookBtn.getAttribute('data-book-type');
+      const id = bookBtn.getAttribute('data-id');
+      if (window.PaymentModule) {
+        window.PaymentModule.openBookingModal(bookType, id);
+      }
+      return;
+    }
+
+    // 7. Tombol Lihat & Unduh E-Ticket di Tab Tiket Saya
+    const viewTicketBtn = e.target.closest('[data-action="view-ticket"]');
+    if (viewTicketBtn) {
+      const idx = parseInt(viewTicketBtn.getAttribute('data-ticket-index'), 10);
+      if (window.PaymentModule) window.PaymentModule.viewTicketByIndex(idx);
+      return;
+    }
+
+    const downloadTicketBtn = e.target.closest('[data-action="download-ticket"]');
+    if (downloadTicketBtn) {
+      const idx = parseInt(downloadTicketBtn.getAttribute('data-ticket-index'), 10);
+      if (window.PaymentModule) window.PaymentModule.downloadTicketByIndex(idx);
+      return;
+    }
+
+    // 8. Tombol Tutup Modal
     if (e.target.closest('[data-action="close-modal"]') || e.target.id === 'globalModalOverlay') {
       closeGlobalModal();
     }

@@ -41,12 +41,16 @@
     if (!container) return;
 
     const dataUmum = getData();
+    const ticketCount = window.PaymentModule ? window.PaymentModule.getSavedTickets().length : 0;
+    const arSiteCount = (window.arHeritageSites || []).length;
     const tabs = [
       { id: 'destinasi', label: 'Destinasi Wisata', icon: 'fa-map-location-dot', count: dataUmum.destinasi.length },
       { id: 'tourGuide', label: 'Pilihan Tour Guide', icon: 'fa-user-tie', count: dataUmum.tourGuide.length },
       { id: 'penginapan', label: 'Hotel & Penginapan', icon: 'fa-hotel', count: dataUmum.penginapan.length },
       { id: 'edukasiBudaya', label: 'Budaya & Kuliner', icon: 'fa-utensils', count: dataUmum.edukasiBudaya.length },
-      { id: 'umkm', label: 'UMKM Sekitar Wisata', icon: 'fa-store', count: dataUmum.umkm.length }
+      { id: 'umkm', label: 'UMKM Sekitar Wisata', icon: 'fa-store', count: dataUmum.umkm.length },
+      { id: 'arExplorer', label: 'AR Heritage Explorer', icon: 'fa-cube', count: arSiteCount },
+      { id: 'tiketSaya', label: 'Tiket Saya', icon: 'fa-ticket', count: ticketCount }
     ];
 
     container.innerHTML = tabs.map(tab => `
@@ -138,19 +142,31 @@
 
     switch (activeSubTab) {
       case 'destinasi':
+        if (window.ArHeritageModule) window.ArHeritageModule.stopCameraScan();
         renderDestinasi(grid);
         break;
       case 'tourGuide':
+        if (window.ArHeritageModule) window.ArHeritageModule.stopCameraScan();
         renderTourGuide(grid);
         break;
       case 'penginapan':
+        if (window.ArHeritageModule) window.ArHeritageModule.stopCameraScan();
         renderPenginapan(grid);
         break;
       case 'edukasiBudaya':
+        if (window.ArHeritageModule) window.ArHeritageModule.stopCameraScan();
         renderEdukasiBudaya(grid);
         break;
       case 'umkm':
+        if (window.ArHeritageModule) window.ArHeritageModule.stopCameraScan();
         renderUMKM(grid);
+        break;
+      case 'arExplorer':
+        if (window.ArHeritageModule) window.ArHeritageModule.renderArExplorer(grid);
+        break;
+      case 'tiketSaya':
+        if (window.ArHeritageModule) window.ArHeritageModule.stopCameraScan();
+        if (window.PaymentModule) window.PaymentModule.renderMyTickets(grid);
         break;
     }
   }
@@ -235,18 +251,27 @@
               href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.mapQuery)}" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="flex items-center gap-1.5 text-xs text-slate-600 hover:text-emerald-700 font-medium py-1.5 px-3 rounded-lg hover:bg-emerald-50 border border-slate-200 transition-colors">
+              class="flex items-center gap-1.5 text-xs text-slate-600 hover:text-emerald-700 font-medium py-1.5 px-2.5 rounded-lg hover:bg-emerald-50 border border-slate-200 transition-colors">
               <i class="fa-solid fa-diamond-turn-right text-emerald-600"></i>
-              <span>Buka Peta</span>
+              <span>Peta</span>
             </a>
 
-            <button 
-              data-action="detail-destinasi" 
-              data-id="${d.id}"
-              class="flex items-center gap-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 px-3.5 rounded-lg shadow-sm hover:shadow transition-all">
-              <span>Detail Lengkap</span>
-              <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
+            <div class="flex items-center gap-1.5">
+              <button 
+                data-action="detail-destinasi" 
+                data-id="${d.id}"
+                class="flex items-center gap-1 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 py-1.5 px-3 rounded-lg transition-all">
+                <span>Detail</span>
+              </button>
+              <button 
+                data-action="book-service" 
+                data-book-type="destinasi"
+                data-id="${d.id}"
+                class="flex items-center gap-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 px-3 rounded-lg shadow-sm hover:shadow transition-all">
+                <i class="fa-solid fa-ticket text-[11px]"></i>
+                <span>Beli Tiket</span>
+              </button>
+            </div>
           </div>
         </div>
       </article>
@@ -329,14 +354,15 @@
             <span class="text-xs font-bold text-emerald-800">${g.tarif}</span>
           </div>
 
-          <a 
-            href="https://wa.me/${g.waPhone}?text=${encodeURIComponent(`Halo ${g.nama}, saya melihat profil Anda di portal Pesona Budaya & Wisata Magelang dan tertarik untuk reservasi pemandu wisata.`)}" 
-            target="_blank" 
-            rel="noopener noreferrer"
+          <button 
+            type="button"
+            data-action="book-service"
+            data-book-type="guide"
+            data-id="${g.id}"
             class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-3.5 rounded-xl shadow-sm hover:shadow transition-all">
-            <i class="fa-brands fa-whatsapp text-sm"></i>
-            <span>Hubungi Guide</span>
-          </a>
+            <i class="fa-solid fa-calendar-check text-xs"></i>
+            <span>Booking Guide</span>
+          </button>
         </div>
       </article>
     `).join('');
@@ -422,14 +448,15 @@
               <span class="text-xs font-bold text-emerald-800">${h.kisaranHarga}</span>
             </div>
 
-            <a 
-              href="${h.bookingUrl}" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <button 
+              type="button"
+              data-action="book-service"
+              data-book-type="hotel"
+              data-id="${h.id}"
               class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-3.5 rounded-xl shadow-sm hover:shadow transition-all">
-              <span>Cek Kamar / Web</span>
-              <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
-            </a>
+              <i class="fa-solid fa-bed text-[11px]"></i>
+              <span>Booking Kamar</span>
+            </button>
           </div>
         </div>
       </article>
